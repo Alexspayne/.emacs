@@ -1,0 +1,30 @@
+;;;; Emacs Bookmark Format Version 1 ;;;;
+;;; This format is meant to be slightly human-readable;
+;;; nevertheless, you probably don't want to edit it.
+;;; -*- End Of Bookmark File Format Version Stamp -*-
+(("nil:WebDev.org:line 2528:column 0"
+ (filename . "~/Dropbox/WebDev/WebDev.org")
+ (front-context-string . "\n** TODO Find ou")
+ (rear-context-string . "\nCheck 3 things\n")
+ (position . 116114))
+("site"
+ (filename . "~/VagrantBoxes/WebsiteDev/public/321budget/index.html")
+ (front-context-string . "<!DOCTYPE html>\n")
+ (rear-context-string)
+ (position . 1))
+("inprogress"
+ (filename . "~/Dropbox/WebDev/WebDev.org")
+ (front-context-string . "****** TODO Crea")
+ (rear-context-string . "21:20] =>  0:19\n")
+ (position . 19588))
+("tab"
+ (filename . "~/Dropbox/WebDev/WebDev.org")
+ (front-context-string . "**** TODO Split ")
+ (rear-context-string . "down selection.\n")
+ (position . 13130))
+("org-refile-last-stored"
+ (filename . "~/Dropbox/WebDev/WebDev.org")
+ (front-context-string . "*** TODO [#A] Up")
+ (rear-context-string . "e.   :feature:\n\n")
+ (position . 78868))
+)

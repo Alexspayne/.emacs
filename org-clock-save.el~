@@ -1,0 +1,2 @@
+;; org-persist.el - E710 at <2016-09-06 Tue 14:44>
+(setq stored-clock-history '(("c:/Users/apayne/My Documents/emacs/bin/Dropbox/WebDev/WebDev.org" . 2289)))

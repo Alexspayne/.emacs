@@ -2,6 +2,11 @@
 
 ;; ----- ido-last-directory-list -----
 (
+ ("c:/Apps/AmeriGroup/AGLAPE_SP/" . "obj/")
+ ("c:/Apps/AmeriGroup/" . "AGLAPE_SP/")
+ ("c:/Apps/" . "AmeriGroup/")
+ ("/home/alex/Dropbox/" . "my.emacs.d/")
+ ("/home/alex/" . ".emacs.d/")
  ("c:/Users/apayne/AppData/Roaming/" . ".emacs.d/")
  ("c:/Users/Alex/Documents/Atom/" . "mlc-website/")
  ("c:/Users/Alex/Documents/" . "Atom/")
@@ -10,11 +15,16 @@
  ("c:/Users/Alex/AppData/" . "Local/")
  ("c:/Users/Alex/" . "Documents/")
  ("c:/Users/" . "Alex/")
- ("c:/" . "Users/")
+ ("c:/" . "Apps/")
 )
 
 ;; ----- ido-work-directory-list -----
 (
+ "c:/Apps/AmeriGroup/AGLAPE_SP/"
+ "c:/"
+ "/home/alex/.emacs.d/"
+ "/home/alex/Dropbox/my.emacs.d/"
+ "/home/alex/Dropbox/WebDev/"
  "c:/Users/apayne/AppData/Roaming/.emacs.d/"
  "c:/Users/Alex/Documents/"
  "c:/Users/Alex/Documents/Atom/mlc-website/"
@@ -26,30 +36,51 @@
 
 ;; ----- ido-work-file-list -----
 (
+ "AGLAPE_SP.js"
+ "app"
+ "settings.el"
  "settings.org"
+ "WebDev.org"
  "init.el"
  "Budget.org"
  "Budget.txt"
  "Budget"
  "index.php"
- ".emacs"
 )
 
 ;; ----- ido-dir-file-cache -----
 (
- ("c:/Users/apayne/AppData/Roaming/.emacs.d/" (22332 40418 0 0) "work.el" "var/" "test-init.el" "snippets/" "settings.org~" "settings.org" "settings.el" "server/" "recentf" "README.md" "places" "minimal-init.el" "init.el~" "init.el" "ido.last~" "ido.last" "es-ac-dict/" "elpa/" "elisp/" "custom.el" "auto-save-list/" "anaconda-mode/" ".gitignore" ".emacs.desktop.lock" ".emacs.desktop" ".editorconfig" "../" "./")
+ ("c:/Apps/AmeriGroup/AGLAPE_SP/obj/" (22395 48235 0 0) "Release/" "Debug/" "../" "./")
+
+ ("c:/Apps/AmeriGroup/AGLAPE_SP/" (22395 56475 0 0) "Recipes.js" "ReadMe.txt" "Properties/" "Prompts.js" "Prompts/" "obj/" "Language/" "bin/" "app.html" "App.cs" "App.config" "AGLAPE_SP.suo" "AGLAPE_SP.sln" "AGLAPE_SP.js~" "AGLAPE_SP.js" "AGLAPE_SP.csproj" "../" "./")
+
+ ("c:/Apps/AmeriGroup/" (22395 48223 0 0) "WPINTTH_SP/" "WPINR_SP/" "WPCASSS_PEDI_SP/" "WPCASSS_ADULT_SP/" "APP1/" "AGWIWEL_SP/" "AGWIHRA_SP/" "AGVASN_PEDI_SP/" "AGVASN_ADULT_SP/" "AGVAHT_SP/" "AGVACHIM_PEDI_SP/" "AGTELEMC_SP/" "AGRETWA_PEDI_SP/" "AGRETWA_ADULT_SP/" "AGRETTX_PEDI_SP/" "AGRETTX_ADULT_SP/" "AGRETNY_PEDI_SP from prod/" "AGRETNY_PEDI_SP/" "AGRETNY_ADULT_SP from prod/" "AGRETNY_ADULT_SP/" "AGRETNV_PEDI_SP/" "AGRETNV_ADULT_SP/" "AGRETMM_PEDI_SP/" "AGRETMM_ADULT_SP/" "AGRETALTWA_PEDI_SP/" "AGRETALTWA_ADULT_SP/" "AGQMIM_PEDI_SP_BM/" "AGQMIM_PEDI_SP from prod/" "AGQMIM_PEDI_SP/" "AGQMHT_V2_SP.zip" "AGQMHT_V2_SP/" "AGQMFTA_PEDI_SP/" "AGQMFTA_ADULT_SP/" "AGQMDR_V2_SP/" "AGQMBH_PEDI_SP/" "AGQMBH_ADULT_SP/" "AGQMAMM_SP/" "AGQMAMMWI_SP/" "AGQMADHD_PEDI_SP/" "AGQMADHDTX_PEDI_SP/" "AGNYBHFU_SP/" "AGNJIHS_PEDI_SP_BM/" "AGNJIHS_PEDI_SP from prod/" "AGNJIHS_PEDI_SP/" "AGNJIHS_ADULT_SP_BM/" "AGNJIHS_ADULT_SP from prod/" "AGNJIHS_ADULT_SP/" "AGNJIHSIB_PEDI_SP_BM/" "AGNJIHSIB_PEDI_SP from prod/" "AGNJIHSIB_PEDI_SP/" "AGNJIHSIB_ADULT_SP_BM/" "AGNJIHSIB_ADULT_SP from prod/" "AGNJIHSIB_ADULT_SP/" "AGMDTTH_SP from prod/" "AGMDTTH_SP/" "AGMDRR_PEDI_SP/" "AGMDPRECAHPS_SP old/" "AGMDPRECAHPS_SP/" "AGMCBRCLG_SP from prod/" "AGMCBRCLG_SP/" "AGLAPE_SP/" "AGKYWEL_SP/" "AGKYHRA_PEDI_SP/" "AGKYHRA_ADULT_SP/" "AGKSWEL_PEDI_SP from prod 2/" "AGKSWEL_PEDI_SP from prod/" "AGKSWEL_PEDI_SP/" "AGKSWEL_ADULT_SP from prod 2/" "AGKSWEL_ADULT_SP from prod/" "AGKSWEL_ADULT_SP/" "AGKSWEL_ADULT/" "AGKSIHS_PEDI_SP from prod/" "AGKSIHS_PEDI_SP/" "AGKSIHS_ADULT_SP from prod/" "AGKSIHS_ADULT_SP/" "AGIBDNC_SP/" "AGIAWEL_SP/" "AGFLU_PEDI_SP from prod/" "AGFLU_PEDI_SP/" "AGFLU_ADULT_SP from prod/" "AGFLU_ADULT_SP/" "AGFLUPHR_ADULT_SP/" "AGFLUMC_SP/" "AGERNJ_PEDI_SP from prod/" "AGERNJ_PEDI_SP/" "AGERNJ_ADULT_SP from prod/" "AGERNJ_ADULT_SP/" "AGERMM_V2_PEDI_SP from prod/" "AGERMM_V2_PEDI_SP/" "AGERMM_V2_ADULT_SP from prod/" "AGERMM_V2_ADULT_SP/" "AGERAV_SP from prod/" "AGERAV_SP/" "AGDISMM_PEDI_SP/" "AGDISMM_ADULT_SP/" "AGDISALT_PEDI_SP/" "AGDISALT_ADULT_SP/" "AGCMC_SP/" "../" "./")
+
+ ("c:/Apps/" (22320 56647 0 0) "WellPoint/" "VSO/" "VOICE TALENTS FOLDERS/" "SelectHealth/" "RxAnteLLC/" "ResolutionHealthInc/" "Qliance/" "PrimeTherapeudics/" "PatientPoint/" "NeighborhoodHealthPlan/" "MedSolutions/" "INTotalHealth/" "HUMANA/" "HFManagementServices/" "HewittAssociatesLLC/" "Healthnet/" "GroupHealthCooperative/" "GatewayHealthPlan/" "ESI/" "CenteneCorporation/" "Catamaran/" "CareSource/" "CareCentrix/" "CaradigmHealthSolutions/" "BuildProcessTemplates/" "BCBSofSouthCarolina/" "BCBSLouisiana/" "AmeriGroup/" "Aetna/" "Accordant/" "Abarca/" "../" "./")
+
+ ("c:/Users/apayne/" (22378 37151 0 0) "Videos/" "Templates/" "Start Menu/" "SendTo/" "Searches/" "Saved Games/" "Recent/" "PrintHood/" "Pictures/" "OneDrive/" "ntuser.pol" "ntuser.ini" "NTUSER.DAT{016888bd-6c6f-11de-8d1d-001e0bcde3ec}.TMContainer00000000000000000002.regtrans-ms" "NTUSER.DAT{016888bd-6c6f-11de-8d1d-001e0bcde3ec}.TMContainer00000000000000000001.regtrans-ms" "NTUSER.DAT{016888bd-6c6f-11de-8d1d-001e0bcde3ec}.TM.blf" "ntuser.dat.LOG2" "ntuser.dat.LOG1" "NTUSER.DAT" "NetHood/" "My Documents/" "Music/" "Local Settings/" "Links/" "Favorites/" "Dropbox/" "Downloads/" "Documents/" "Desktop/" "Cookies/" "Contacts/" "Application Data/" "AppData/" ".ssh/" ".QtWebEngineProcess/" ".oracle_jre_usage/" ".HipChat/" ".gitconfig" ".bash_history" ".atom/" "../" "./")
+
+ ("c:/Users/apayne/Documents/" (22375 36177 0 0) "~$ST function CMS.docx" "~$ing Data Mapping Tables.docx" "WPCR2016_7_1_16-OutputReport.docx" "WellpointDNC_ToTheCloud_TestCases.xlsx" "Visual Studio 2015/" "Visual Studio 2010/" "Visual Studio 2008/" "vicepd" "vice1" "Using Snippets.gif" "Using Snippets Interactive.gif" "Using Data Mapping Tables.docx" "timetracking.txt" "time.org~" "time.org" "texts/" "TestTextFile.txt" "TestingGifs.gif" "TEST function CMS.docx" "Study.txt" "SQL Server Management Studio/" "sms.txt" "SharePoint Drafts/" "Resolutions for Errors and Issues.docx" "RE How to run the AG REPORT in report---PLEASE KEEP THIS DOCUMENTATION HANDY.msg" "Query Analyzer Window lost.gif" "pto.html" "Outlook Files/" "OneNote Notebooks/" "old.txt" "new 3.js" "My Videos/" "My Received Files/" "My Pictures/" "My Music/" "MOJO Nomination form Kaitlin Cintolo.docx" "MedSolutions/" "macros.txt" "LineRemovalMacro.txt" "ImportAutomationWorkflow_V2.pdf" "iCAT - [Results-Alert-Scrubs] DERT Report for [Program-Outreach] Name Ready for iCAT Testing.oft" "GitHub/" "emails/" "emacs/" "Eliza VPN Instructions.pdf" "Drag and Drop to avoid typing.gif" "Direct Deposit Form FILLABLE.pdf" "desktop.ini" "DERT_DOCUMENTATION.docx" "DertReportTestingProcess.docx" "DERT Tasks descriptions" "DERT REPORTS PROCESS.xlsx" "Default.rdp" "Custom Office Templates/" "Code.docx" "CLOUD TESTING DOCUMENTATION ---FIRST.DOC" "CCNBPR_Provider List 2.xlsx" "Beginner Guide To File Maps and Vice Rules.docx" "backup.net.reg" "ATT00001.htm" "AppFramework/" "AppDevNotes.docx" "App development start to finish notes v0.2.docx" "AGMBCOC_SP-OutputReport.docx" "Aggregated Reporting.docx" "AG Framework Process Apr 4 2016.xlsx" "aedr.docx" ".aws/" ".#providernames.csv" ".#notes.org" ".#new.txt" "#time.org#" "#providernames.csv#" "#notes.org#" "#new.txt#" "../" "./")
+
+ ("c:/Users/apayne/Documents/emacs/bin/" (22351 2789 0 0) "runemacs.exe" "libXpm.dll" "grep-changelog" "etags.exe" "emacsclientw.exe" "emacsclient.exe" "emacs.exe" "emacs-24.5.exe" "ebrowse.exe" "Dropbox/" "ctags.exe" "BROWSE" "addpm.exe" ".emacs-buffers" "#!scratch!#" "../" "./")
+
+ ("/home/alex/.emacs.d/" (22366 4154 86067 981000) "custom.el" "bookmarks" "auto-save-list/" ".gitignore" "session.10a4af1af8dd0e91ee146508162724575500000016870101" "elpa/" "settings.org" "../" "url/" "./" "test-init.el" "ido.last" "settings.el" "snippets/" "#init.el#" "recentf" "org-clock-save.el~" "session.1025b5dc825799805e146448389183520100000016400036" "%backup%~" "minimal-init.el" "README.md" "projectile.cache" "var/" "work.el" ".editorconfig" "settings.org~" ".git/" "init.el" "places" "recentf~" ".emacs.desktop" "ido.last~" "org-clock-save.el" "init.el~" "projectile-bookmarks.eld" "eshell/" "session.10ead1e8e3c110bfba146546918953256900000016250034")
+
+ ("/home/alex/Dropbox/my.emacs.d/" (22366 4154 86067 981000) "custom.el" "bookmarks" "auto-save-list/" ".gitignore" "session.10a4af1af8dd0e91ee146508162724575500000016870101" "elpa/" "settings.org" "../" "url/" "./" "test-init.el" "ido.last" "settings.el" "snippets/" "#init.el#" "recentf" "org-clock-save.el~" "session.1025b5dc825799805e146448389183520100000016400036" "%backup%~" "minimal-init.el" "README.md" "projectile.cache" "var/" "work.el" ".editorconfig" "settings.org~" ".git/" "init.el" "places" "recentf~" ".emacs.desktop" "ido.last~" "org-clock-save.el" "init.el~" "projectile-bookmarks.eld" "eshell/" "session.10ead1e8e3c110bfba146546918953256900000016250034")
+
+ ("/home/alex/Dropbox/WebDev/" (22366 3712 149306 448000) "Sortie.org" "Budget.org" "LongTermGoals.org" "DailyGoalSetting.org_archive" "WebDev.org~" "DailyGoalSetting.org" "Sortie.org~" "DailyGoalSetting.tex" "DailyGoalSetting.html" ".emacs~" "settings.org" "sqlqueries.txt" "Future Snippets" "../" ".emacs" "./" "#Budget.org#" "DailyGoalSetting.org~" "Budget.org~" "DailyGoalSetting.html~" "settings.el" "DailyGoalSetting.org_archive~" "Future Snippets~" "WebDev.org" "LongTermGoals.org~" "WebDev.org_archive" "Website/" "WebDev.org_archive~")
+
+ ("/home/alex/Dropbox/" (22366 3745 932331 516000) "elizatasks.org_archive~" "Private/" "elizatasks.org" "elizatasks.org_archive" "Camera phots/" "elizatasks.html" "../" "./" "BusinessIdeas.org" ".dropbox" "my.emacs.d/" "elizatasks.txt" "elizatasks.org~" "day 2/" "Pictures/" "org_files/" "journal/" "WebDev/" "npm-debug.log" "Camera Uploads/" ".dropbox.cache/" "Documents/" "BusinessIdeas.org~")
+
+ ("/home/alex/" (22366 3740 948331 491000) "local/" "tmp/" ".profile" ".elmo/" ".wl" ".gconf/" ".thunderbird/" ".gnome2/" ".gitconfig" "Desktop/" ".linuxmint/" "Code/" "Dropbox/" ".gnome2_private/" "../" "Homestead/" ".ICEauthority" "php-src/" ".xsession-errors" ".ssh/" "website/" "./" ".aspell.en.pws" "Public/" ".emacs.d/" "Videos/" ".local/" ".profile~" ".dropbox/" "my.emacs.d/" ".Xauthority" "Pictures/" ".dbus/" "project/" ".pki/" "node-latest-install/" ".npm/" ".homestead/" "monst.xspf" "Music/" ".bashrc" ".shutter/" "Mail/" ".dmrc" ".aspell.en.prepl" ".bash_history" ".cinnamon/" ".cache/" ".bash_logout" ".composer/" ".gksu.lock" ".mozilla/" "Documents/" ".mysql_history" ".dropbox-dist/" ".vagrant.d/" ".config/" "Downloads/" "Templates/" ".gnupg/")
+
+ ("c:/Users/apayne/AppData/Roaming/.emacs.d/" (22332 40663 0 0) "work.el" "var/" "test-init.el" "snippets/" "settings.org~" "settings.org" "settings.el" "server/" "recentf" "README.md" "places" "minimal-init.el" "init.el~" "init.el" "ido.last~" "ido.last" "es-ac-dict/" "elpa/" "elisp/" "custom.el" "auto-save-list/" "anaconda-mode/" ".gitignore" ".emacs.desktop" ".editorconfig" "../" "./")
 
  ("c:/Users/apayne/AppData/Roaming/" (22332 40259 0 0) "Xerox/" "Unity/" "Sun/" "SoftQuad/" "NuGet/" "Notepad++/" "MonoDevelop-Unity-5.0/" "Microsoft/" "Media Center Programs/" "McAfee/" "Macromedia/" "licecap.ini" "Identities/" "Greenshot/" "GitHub/" "Dropbox/" "Brackets/" "Atom/" "Atlassian/" "ATI/" "Apple Computer/" "Adobe/" ".salesforce.com/" ".emacs.d/" "../" "./")
 
  ("c:/Users/" (22074 8293 0 0) "Public/" "jmaliawco.admin/" "jbertelli/" "desktop.ini" "Default User/" "Default/" "bward/" "bu/" "apayne/" "All Users/" "Administrator/" "../" "./")
 
- ("c:/Users/apayne/" (22332 39811 0 0) "Videos/" "Templates/" "Start Menu/" "SendTo/" "Searches/" "Saved Games/" "Recent/" "PrintHood/" "Pictures/" "ntuser.pol" "ntuser.ini" "NTUSER.DAT{016888bd-6c6f-11de-8d1d-001e0bcde3ec}.TMContainer00000000000000000002.regtrans-ms" "NTUSER.DAT{016888bd-6c6f-11de-8d1d-001e0bcde3ec}.TMContainer00000000000000000001.regtrans-ms" "NTUSER.DAT{016888bd-6c6f-11de-8d1d-001e0bcde3ec}.TM.blf" "ntuser.dat.LOG2" "ntuser.dat.LOG1" "NTUSER.DAT" "NetHood/" "My Documents/" "Music/" "Local Settings/" "Links/" "Favorites/" "Downloads/" "Documents/" "Desktop/" "Cookies/" "Contacts/" "Application Data/" "AppData/" ".ssh/" ".QtWebEngineProcess/" ".oracle_jre_usage/" ".HipChat/" ".gitconfig" ".atom/" "../" "./")
-
- ("c:/Users/apayne/Documents/" (22332 34271 0 0) "~$ST function CMS.docx" "~$ing Data Mapping Tables.docx" "WPCR2016_7_1_16-OutputReport.docx" "WorkSpace/" "Visual Studio 2015/" "Visual Studio 2010/" "Visual Studio 2008/" "vicepd" "vice1" "Using Data Mapping Tables.docx" "timetracking.txt" "time.org~" "time.org" "texts/" "TestTextFile.txt" "TestingGifs.gif" "TEST function CMS.docx" "Study.txt" "SQL Server Management Studio/" "sms.txt" "SharePoint Drafts/" "Resolutions for Errors and Issues.docx" "RE How to run the AG REPORT in report---PLEASE KEEP THIS DOCUMENTATION HANDY.msg" "pto.html" "Outlook Files/" "OneNote Notebooks/" "old.txt" "new 3.js" "My Videos/" "My Received Files/" "My Pictures/" "My Music/" "MOJO Nomination form Kaitlin Cintolo.docx" "MedSolutions/" "macros.txt" "LineRemovalMacro.txt" "ImportAutomationWorkflow_V2.pdf" "iCAT - [Results-Alert-Scrubs] DERT Report for [Program-Outreach] Name Ready for iCAT Testing.oft" "GitHub/" "emails/" "emacs/" "Eliza VPN Instructions.pdf" "Direct Deposit Form FILLABLE.pdf" "desktop.ini" "DERT_DOCUMENTATION.docx" "DertReportTestingProcess.docx" "DERT Tasks descriptions" "DERT REPORTS PROCESS.xlsx" "Default.rdp" "Custom Office Templates/" "Code.docx" "CLOUD TESTING DOCUMENTATION ---FIRST.DOC" "CCNBPR_Provider List 2.xlsx" "Beginner Guide To File Maps and Vice Rules.docx" "backup.net.reg" "ATT00001.htm" "AppFramework/" "AppDevNotes.docx" "App development start to finish notes v0.2.docx" "Aggregated Reporting.docx" "AG Framework Process Apr 4 2016.xlsx" "aedr.docx" ".aws/" ".#providernames.csv" ".#notes.org" ".#new.txt" "#time.org#" "#providernames.csv#" "#notes.org#" "#new.txt#" "../" "./")
-
  ("c:/Users/apayne/Documents/emacs/" (22302 9017 0 0) "var/" "share/" "libexec/" "bin/" "../" "./")
-
- ("c:/Users/apayne/Documents/emacs/bin/" (22332 38943 0 0) "runemacs.exe" "libXpm.dll" "grep-changelog" "etags.exe" "emacsclientw.exe" "emacsclient.exe" "emacs.exe" "emacs-24.5.exe" "ebrowse.exe" "Dropbox/" "ctags.exe" "BROWSE" "addpm.exe" ".emacs-buffers" "../" "./")
 
  ("c:/Users/Alex/Documents/" (22301 32283 0 0) "Webbbsite/" "Visual Studio 2015/" "Unity-10th-Planet-2D-Game/" "Unity/" "Temp Code.cs" "temp" "SavedGames/" "My Videos/" "My Pictures/" "My Music/" "hgignore_global.txt" "gitignore_global.txt" "GitHub/" "gen_validatorv4.js" "geass.xspf" "GA-Arm/" "GA Robot Arm/" "Downloads/" "desktop.ini" "Default.rdp" "Budget.txt~" "Budget.txt" "Budget.org~" "Budget.org" "BallJumpt/" "balljump/" "Balljjj/" "Atom/" "12 River Dr to Museum of Science - Google Maps.pdf" "../" "./")
 

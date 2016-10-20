@@ -1,0 +1,18 @@
+;; -*- emacs-lisp -*- <16/07/01 07:09:33 /home/alex/.emacs.d/tramp>
+;; Tramp connection history.  Don't change this file.
+;; You can delete it, forcing Tramp to reapply the checks.
+
+((["scp" "vagrant" "vagrant-ubunut-trusty-64" nil nil]
+  nil)
+ (["scp" nil "vagrant" nil nil]
+  nil)
+ (["scp" nil "vagrant-ubuntu-trusty-64" nil nil]
+  nil)
+ (["scp" nil "sudo" nil "ssh:vagrant@localhost#2222|"]
+  nil)
+ (["ssh" "vagrant" "vagrant-ubuntu-trusty-64" nil nil]
+  nil)
+ (["scp" "vagrant" "vagrant-ubuntu-trusty-64" nil nil]
+  nil)
+ (["scp" "vagrant" "vagrant-ubuntu-trusty64" nil nil]
+  nil))

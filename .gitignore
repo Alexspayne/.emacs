@@ -2,3 +2,6 @@
 /#init.el#
 /.#settings.org
 /recentf~
+
+auto-save-list/
+elpa/

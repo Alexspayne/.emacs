@@ -1,53 +1,4 @@
-Emacs configuration
-* Sections
-#+TODO: REVIEW | DONE
-:PROPERTIES:
-:VISIBILITY: children
-:END:
 
-** Shortcuts
-*** Shortcut to place timestamp
-#+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-c t")
-		(lambda () (interactive) (org-time-stamp "HH:MM")))
-#+END_SRC
-
-*** Shortcut to web dev tasks file
-#+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-c w")
-		(lambda () (interactive) (find-file "~/Dropbox/WebDev/WebDev.org")))
-#+END_SRC
-
-*** Shortcut to daily goals file
-At work, ~/ is my roaming folder. (windows)
-But at home, ~/ is my home/user folder. Augh..
-#+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-c d")
-		(lambda () (interactive) (find-file "~/Dropbox/WebDev/DailyGoalSetting.org")))
-#+END_SRC
-
-
-*** Shortcut to config file
-#+BEGIN_SRC emacs-lisp
-;; Open this config file
-(global-set-key (kbd "C-c s")
-		(lambda () (interactive) (find-file "~/.emacs.d/settings.org")))
-#+END_SRC
-
-** GUI stuff
-#+BEGIN_SRC emacs-lisp
-(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
-(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(if (fboundp 'tooltip-mode) (tooltip-mode -1))
-(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
-
-(when window-system
-  (setq frame-title-format '(buffer-file-name "%f" ("%b")))
-  (add-hook 'window-setup-hook 'toggle-frame-maximized t))
-#+END_SRC
-
-** MELPA and other repositories
-#+BEGIN_SRC emacs-lisp
 ;; Emacs lisp files
 (add-to-list 'load-path "~/.emacs.d/elisp/")
 
@@ -64,10 +15,48 @@ But at home, ~/ is my home/user folder. Augh..
 
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
-#+END_SRC
 
-** Use-package
-#+BEGIN_SRC emacs-lisp
+;;This is for replacement of a condition for a the TCPA function.
+(defun cellphone-replace ()
+(interactive)                           
+  (while (search-forward "\(Cellphone and Outbound" nil t)
+    (replace-match "\(application.Current.User.GetInfoNode(\"D_PHONE_TYPE\") == \"Wireless\" && !TheApplication.bInboundCall" nil t))
+)
+
+(global-set-key (kbd "C-c l") 'cellphone-replace)
+
+;; Still have to figure out how to use use-package to get this installed.
+(add-to-list 'load-path "~/.emacs.d/impatient-mode")
+(require 'impatient-mode)
+
+(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'tooltip-mode) (tooltip-mode -1))
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+
+(when window-system
+  (setq frame-title-format '(buffer-file-name "%f" ("%b")))
+  (add-hook 'window-setup-hook 'toggle-frame-maximized t))
+
+(setq org-clock-persist 'history)
+  (org-clock-persistence-insinuate)
+
+(global-set-key (kbd "C-c j") 'org-journal-new-entry)
+;;Now I just have to figure out how to get this to go to a specific window instead of jumping over one I already have up.
+
+(global-set-key (kbd "C-c t")
+                (lambda () (interactive) (org-time-stamp "HH:MM")))
+
+(global-set-key (kbd "C-c w")
+                (lambda () (interactive) (find-file "~/Dropbox/WebDev/WebDev.org")))
+
+(global-set-key (kbd "C-c d")
+                (lambda () (interactive) (find-file "~/Dropbox/WebDev/DailyGoalSetting.org")))
+
+;; Open this config file
+(global-set-key (kbd "C-c s")
+                (lambda () (interactive) (find-file "~/.emacs.d/settings.org")))
+
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
@@ -76,10 +65,7 @@ But at home, ~/ is my home/user folder. Augh..
 (setq use-package-verbose t)
 
 (require 'use-package)
-#+END_SRC
 
-** Theme
-#+BEGIN_SRC emacs-lisp
 (use-package atom-one-dark-theme
   :disabled t
   :init
@@ -131,33 +117,22 @@ But at home, ~/ is my home/user folder. Augh..
   (mapc #'disable-theme custom-enabled-themes))
 
 (bind-key "C-`" 'switch-theme)
-#+END_SRC
-** Fill-column-indicator
-#+BEGIN_SRC emacs-lisp
-  (use-package fill-column-indicator
-    :config
-    (add-hook 'python-mode-hook 'fci-mode)
-    (setq-default fill-column 80)
-    (setq-default fci-rule-color "#546D7A"))
-#+END_SRC
 
-** Rainbow-delimiters
-#+BEGIN_SRC emacs-lisp
+(use-package fill-column-indicator
+  :config
+  (add-hook 'python-mode-hook 'fci-mode)
+  (setq-default fill-column 80)
+  (setq-default fci-rule-color "#546D7A"))
+
 (use-package rainbow-delimiters
   :config
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
-#+END_SRC
 
-** Fixmee-mode
-#+BEGIN_SRC emacs-lisp
 (use-package fixmee
   :config
   (add-hook 'python-mode-hook 'fixmee-mode)
   )
-#+END_SRC
 
-** Org-bullets
-#+BEGIN_SRC emacs-lisp
 (use-package org-bullets
 :init
 (setq org-bullets-bullet-list
@@ -166,9 +141,7 @@ But at home, ~/ is my home/user folder. Augh..
 (setcdr org-bullets-bullet-map nil)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 )
-#+END_SRC
-** Hydra
-#+BEGIN_SRC emacs-lisp
+
 (use-package hydra
   :defer t
   )
@@ -213,34 +186,27 @@ But at home, ~/ is my home/user folder. Augh..
   )
 
 (global-set-key (kbd "s-M") 'hydra-modes/body)
-#+END_SRC
-** Org
-*** General settings
-#+BEGIN_SRC emacs-lisp
+
 (setq org-refile-targets '((org-agenda-files . (:maxlevel . 6))))
 (setq org-hide-leading-stars t)
 (add-hook 'org-mode-hook 'org-indent-mode)
 
+;;I use visual line mode in org mode because I do so much writing in my org files.
+(add-hook 'org-mode-hook 'visual-line-mode)
 ;; Open .org and .txt files in org-mode
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 (add-to-list 'auto-mode-alist '("\\.txt\\'" . org-mode))
 
+
 (add-hook 'org-agenda-finalize-hook
       (lambda () (remove-text-properties
          (point-min) (point-max) '(mouse-face t))))
-#+END_SRC
 
-*** Keybindings
-#+BEGIN_SRC emacs-lisp
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-ca" 'corgi-org-agenda)
 
 (define-key org-agenda-mode-map "d" 'org-agenda-deadline)
 (define-key org-agenda-mode-map "s" 'org-agenda-schedule)
-
-;; Open this config file
-(global-set-key (kbd "C-c s")
-        (lambda () (interactive) (find-file "~/.emacs.d/settings.org")))
 
 ;; bindings for capture templates
 (define-key global-map "\C-ci" ;inbox
@@ -256,10 +222,7 @@ But at home, ~/ is my home/user folder. Augh..
 
 (define-key org-mode-map
   (kbd "M-;") 'my-org-comment-dwim)
-#+END_SRC
 
-*** TODOs
-#+BEGIN_SRC emacs-lisp
 (setq org-enforce-todo-dependencies t)
 
 ;; Set to 'invisible and blocked tasks wont show up in agenda, t and they will be dimmed
@@ -267,10 +230,7 @@ But at home, ~/ is my home/user folder. Augh..
 
 ;; Don't keep track of completed repeating tasks
 (setq org-log-repeat nil)
-#+END_SRC
 
-*** Agenda
-#+BEGIN_SRC emacs-lisp
 ;; Enable highlight line only for org-agenda-mode (it is annoying in other modes)
 (add-hook 'org-agenda-mode-hook 'hl-line-mode)
 
@@ -337,47 +297,35 @@ But at home, ~/ is my home/user folder. Augh..
   (setq org-agenda-confirm-kill 2)
 
   (setq org-deadline-warning-days 3)
-#+END_SRC
 
-*** Capture templates
-#+BEGIN_SRC emacs-lisp
-  (setq org-capture-templates
-    '(("i" "New TODO to Uncategorized TODOs" entry (file+headline
-      "~/Dropbox/org_files/da_guai.org" "Uncategorized TODOs")
-      "* TODO %?" :kill-buffer t)
+(setq org-capture-templates
+  '(("i" "New TODO to Uncategorized TODOs" entry (file+headline
+    "~/Dropbox/org_files/da_guai.org" "Uncategorized TODOs")
+    "* TODO %?" :kill-buffer t)
 
-    ("n" "New note to xnotes.org" entry (file
-     "~/Dropbox/org_files/xnotes.org")
-     "* %T\n\n%i%?" :prepend t :empty-lines 1)
+  ("n" "New note to xnotes.org" entry (file
+   "~/Dropbox/org_files/xnotes.org")
+   "* %T\n\n%i%?" :prepend t :empty-lines 1)
 
-    ("w" "New work note" entry (file
-      "~/Dropbox/org_files/worknotes.org")
-      "* %T\n\n%i%?" :kill-buffer t :prepend t :empty-lines 1)
+  ("w" "New work note" entry (file
+    "~/Dropbox/org_files/worknotes.org")
+    "* %T\n\n%i%?" :kill-buffer t :prepend t :empty-lines 1)
 
-    ("d" "New daydayup entry" entry (file
-      "~/Dropbox/org_files/daydayup.org")
-      "* %T\n\n%?" :kill-buffer t :prepend t :empty-lines 1)))
-#+END_SRC
+  ("d" "New daydayup entry" entry (file
+    "~/Dropbox/org_files/daydayup.org")
+    "* %T\n\n%?" :kill-buffer t :prepend t :empty-lines 1)))
 
-*** make things look nice
-#+BEGIN_SRC emacs-lisp
-  (setq org-src-fontify-natively t
-        org-src-window-setup 'current-window
-        org-src-strip-leading-and-trailing-blank-lines t
-        org-src-preserve-indentation t
-        org-src-tab-acts-natively t)
-#+END_SRC
+(setq org-src-fontify-natively t
+      org-src-window-setup 'current-window
+      org-src-strip-leading-and-trailing-blank-lines t
+      org-src-preserve-indentation t
+      org-src-tab-acts-natively t)
 
-*** Babel
-#+BEGIN_SRC emacs-lisp
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((python . t)
    (sh . t)))
-#+END_SRC
 
-** Projectile
-#+BEGIN_SRC emacs-lisp
 (use-package projectile
   :defer t
   :diminish projectile-mode
@@ -394,10 +342,7 @@ But at home, ~/ is my home/user folder. Augh..
   :commands helm-projectile-find-file
   :init
   (helm-projectile-on))
-#+END_SRC
 
-** Custom functions for navigation
-#+BEGIN_SRC emacs-lisp
 (defun smarter-move-beginning-of-line (arg)
   "Move point back to indentation of beginning of line.
 
@@ -428,11 +373,8 @@ point reaches the beginning or end of the buffer, stop there."
 Repeated invocations toggle between the two most recently open buffers."
   (interactive)
   (switch-to-buffer (other-buffer (current-buffer) 1)))
-#+END_SRC
 
-** Helm
-#+BEGIN_SRC emacs-lisp
-  (use-package helm
+(use-package helm
     :init
     ;;(require 'helm-config)
     (helm-mode 1)
@@ -463,19 +405,13 @@ Repeated invocations toggle between the two most recently open buffers."
   (if (helm-alive-p)
       (helm-run-after-exit #'helm-projectile-find-file)
     (helm-mini)))
-#+END_SRC
 
-** Helm-ag
-#+BEGIN_SRC emacs-lisp
 (use-package helm-ag
   :defer t
   :config
   (setq helm-ag-insert-at-point 'symbol)
   )
-#+END_SRC
 
-** Ace-jump-mode
-#+BEGIN_SRC emacs-lisp
 ;;
 ;; ace jump mode major function
 ;;
@@ -501,17 +437,12 @@ Repeated invocations toggle between the two most recently open buffers."
   '(ace-jump-mode-enable-mark-sync))
 (define-key global-map (kbd "C-x SPC") 'ace-jump-mode-pop-mark)
 (setq ace-jump-mode-submode-list '(ace-jump-char-mode ace-jump-line-mode ace-jump-word-mode))
-#+END_SRC
 
-** Smartscan
-#+BEGIN_SRC emacs-lisp
 (use-package smartscan
   :init
   (global-smartscan-mode 1)
   )
-#+END_SRC
-** Registers and bookmarks
-#+BEGIN_SRC emacs-lisp
+
 (defhydra hydra-register (global-map "<f1>")
   "register hydra"
   ("r" point-to-register "point")
@@ -526,18 +457,15 @@ Repeated invocations toggle between the two most recently open buffers."
   "Save bookmark with name as 'buffer:row:col'"
   (interactive)
   (bookmark-set (format "%s:%s:line %s:column %s"
-			(thing-at-point 'symbol)
-			(buffer-name)
-			(line-number-at-pos)
-			(current-column)))
+                        (thing-at-point 'symbol)
+                        (buffer-name)
+                        (line-number-at-pos)
+                        (current-column)))
   (message "Bookmarked saved at current position"))
 
 (global-set-key (kbd "C-S-b") 'my/quick-save-bookmark)
 (bind-key "<menu>" 'helm-bookmarks)
-#+END_SRC
 
-** Assorted key bindings
-#+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "C-c o") 'browse-url-of-file)
 (global-set-key (kbd "C-+") 'text-scale-increase)
 (global-set-key (kbd "C-\-") 'text-scale-decrease)
@@ -546,10 +474,7 @@ Repeated invocations toggle between the two most recently open buffers."
 (define-key dired-mode-map "b" 'dired-up-directory)
 ;; Don't suspended when I accidently hit C-z
 (global-unset-key (kbd "C-z"))
-#+END_SRC
 
-** Key-chord
-#+BEGIN_SRC emacs-lisp
 (defun es/switch-to-previous-buffer ()
   "Switch to previously open buffer.
 Repeated invocations toggle between the two most recently open buffers."
@@ -569,20 +494,13 @@ Repeated invocations toggle between the two most recently open buffers."
     (key-chord-define-global "MM" 'hydra-modes/body)
     (key-chord-define-global "FF" 'delete-other-windows)
     (key-chord-define-global "GG" 'magit-status)
-    (key-chord-define-global "SS" 'helm-swoop-back-to-last-point)
+    ;; (key-chord-define-global "SS" 'helm-swoop-back-to-last-point) ;;I type SS too much.
     (key-chord-define-global "DD" 'dired-jump)
     )
   )
-#+END_SRC
 
-** REVIEW Lisp
-*** Slime
-#+BEGIN_SRC emacs-lisp
 (setq inferior-lisp-program "/usr/bin/sbcl")
-#+END_SRC
 
-*** Eldoc
-#+BEGIN_SRC emacs-lisp
 (use-package "eldoc"
   :diminish eldoc-mode
   :commands turn-on-eldoc-mode
@@ -591,17 +509,11 @@ Repeated invocations toggle between the two most recently open buffers."
   (progn
   (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
   (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)))
-#+END_SRC
 
-** SQL
-#+BEGIN_SRC emacs-lisp
 (add-hook 'sql-interactive-mode-hook
           (lambda ()
             (toggle-truncate-lines t)))
-#+END_SRC
 
-** JavaScript
-#+BEGIN_SRC emacs-lisp
 (defun replace-alist-mode (alist oldmode newmode)
   (dolist (aitem alist)
     (if (eq (cdr aitem) oldmode)
@@ -616,10 +528,7 @@ Repeated invocations toggle between the two most recently open buffers."
   (setq js2-indent-switch-body t)
   ;; (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
   )
-#+END_SRC
 
-** Yasnippet
-#+BEGIN_SRC emacs-lisp
 (use-package yasnippet
   :diminish yas-minor-mode
   :init (yas-global-mode 1)
@@ -627,45 +536,30 @@ Repeated invocations toggle between the two most recently open buffers."
   (progn
     (yas-global-mode)
     (add-hook 'term-mode-hook (lambda()
-				(setq yas-dont-activate t)))
-    (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
+                                (setq yas-dont-activate t)))
+;;  (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
     (define-key yas-minor-mode-map (kbd "<tab>") nil)
     (define-key yas-minor-mode-map (kbd "TAB") nil)
     (define-key yas-minor-mode-map (kbd "SPC") #'yas-expand)
     (yas-global-mode 1)))
-#+END_SRC
 
-** Magit
-#+BEGIN_SRC emacs-lisp
-  (use-package magit
-    :init
-    (setq magit-push-current-set-remote-if-missing nil)
-    :config
-    (setq magit-push-always-verify nil)
-    :bind ("C-c g" . magit-status))
-#+END_SRC
+(use-package magit
+  :init
+  (setq magit-push-current-set-remote-if-missing nil)
+  :config
+  (setq magit-push-always-verify nil)
+  :bind ("C-c g" . magit-status))
 
-** Expand region
-#+BEGIN_SRC emacs-lisp
-  (use-package expand-region
-    :defer t
-    :bind ("M-SPC" . er/expand-region))
-#+END_SRC
+(use-package expand-region
+  :defer t
+  :bind ("M-SPC" . er/expand-region))
 
-** REVIEW Syntax-subword
-
-This mode allows more fine-grained movement and editing commands
-
-#+BEGIN_SRC emacs-lisp
 (use-package syntax-subword
   :init
   (setq syntax-subword-skip-spaces t)
   :config
   (global-syntax-subword-mode))
-#+END_SRC
 
-** Wrap-region
-#+BEGIN_SRC emacs-lisp
 (use-package wrap-region
   :config
   (wrap-region-add-wrappers
@@ -676,42 +570,37 @@ This mode allows more fine-grained movement and editing commands
   (add-hook 'org-mode-hook 'wrap-region-mode)
   (add-hook 'python-mode-hook 'wrap-region-mode)
   (add-hook 'lisp-mode-hook 'wrap-region-mode))
-#+END_SRC
 
-** Multiple-cursors
-#+BEGIN_SRC emacs-lisp
 (use-package multiple-cursors
   :bind (("M-N" . mc/mark-next-like-this)
-	 ("M-P". mc/mark-previous-like-this)
-	 ("C-S-<mouse-1> " . mc/add-cursor-on-click)))
-#+END_SRC
+         ("M-P". mc/mark-previous-like-this)
+         ("C-S-<mouse-1> " . mc/add-cursor-on-click)))
 
-** Flycheck
-#+BEGIN_SRC emacs-lisp
+(use-package flyspell)
+
+;;I want to have spellcheck work in org and journal files.
+(add-hook 'org-mode-hook 'flyspell-mode)
+
+;; easy spell check
+(global-set-key (kbd "<f8>") 'ispell-word)
+(global-set-key (kbd "C-S-<f8>") 'flyspell-mode)
+(global-set-key (kbd "C-M-<f8>") 'flyspell-buffer)
+(global-set-key (kbd "C-<f8>") 'flyspell-check-previous-highlighted-word)
+(defun flyspell-check-next-highlighted-word ()
+  "Custom function to spell check next highlighted word"
+  (interactive)
+  (flyspell-goto-next-error)
+  (ispell-word)
+  )
+(global-set-key (kbd "M-<f8>") 'flyspell-check-next-highlighted-word)
+
 (use-package flycheck
   :init
   :disabled t
   (global-flycheck-mode)
   )
-#+END_SRC
 
-** Company
-#+BEGIN_SRC emacs-lisp
-(use-package company
-  :ensure t
-  :config
-  (global-company-mode 1)
-  (setq company-idle-delay 0)
-  (setq company-tooltip-limit 15)
-  (setq company-minimum-prefix-length 2)
-  ;; (setq company-tooltip-flip-when-above t)
-  ;; (setq company-dabbrev-ignore-case 'keep-prefix)
-  )
-#+END_SRC
-
-** Auto-complete
-#+BEGIN_SRC emacs-lisp
-  (use-package auto-complete
+(use-package auto-complete
     :ensure t
     :init
     (require 'auto-complete-config)
@@ -720,135 +609,27 @@ This mode allows more fine-grained movement and editing commands
     (add-to-list 'ac-modes 'sql-interactive-mode)
     (add-hook 'sql-interactive-mode-hook (lambda () (auto-complete-mode 1) (company-mode)))
 )
-#+END_SRC
 
-** REVIEW Undo-tree
-#+BEGIN_SRC emacs-lisp
-(use-package undo-tree
+(use-package company
   :ensure t
-  :diminish undo-tree-mode
   :config
-  (progn
-    (global-undo-tree-mode)
-    (setq undo-tree-visualizer-timestamps t)
-    (setq undo-tree-visualizer-diff t))
-  :bind ("C-/" . undo-tree-undo)
+;;I won't use company mode at all until I can figure out how to turn it off for org files.   
+;;  (global-company-mode)
+  (setq company-idle-delay 0)
+  (setq company-tooltip-limit 15)
+  (setq company-minimum-prefix-length 2)
+  ;; (setq company-tooltip-flip-when-above t)
+  (setq company-dabbrev-ignore-case 'keep-prefix)
+  (setq company-dabbrev-downcase nil)
+
+;;Instead of running company mode globally (It's really annoying in Org-Mode)
+;;I will just add hooks gere to run it with certain major modes.
+(add-hook 'js2-mode-hook 'company-mode)
+(add-hook 'js-mode-hook 'company-mode)
+(add-hook 'web-mode-hook 'company-mode)
+(add-hook 'css-mode-hook 'company-mode)
   )
-#+END_SRC
 
-** REVIEW Copy line
-#+BEGIN_SRC emacs-lisp
- (defun copy-line (arg)
-  "Copy lines (as many as prefix argument) in the kill ring.
-    Ease of use features:
-    - Move to start of next line.
-    - Appends the copy on sequential calls.
-    - Use newline as last char even on the last line of the buffer.
-    - If region is active, copy its lines."
-  (interactive "p")
-  (let ((beg (line-beginning-position))
-	(end (line-end-position arg)))
-    (when mark-active
-      (if (> (point) (mark))
-	  (setq beg (save-excursion (goto-char (mark)) (line-beginning-position)))
-	(setq end (save-excursion (goto-char (mark)) (line-end-position)))))
-    (if (eq last-command 'copy-line)
-	(kill-append (buffer-substring beg end) (< end beg))
-      (kill-ring-save beg end)))
-  (kill-append "\n" nil)
-  (beginning-of-line (or (and arg (1+ arg)) 2))
-  (if (and arg (not (= 1 arg))) (message "%d lines copied" arg)))
-
-(global-set-key (kbd "C-S-l") 'copy-line)
-
-#+END_SRC
-
-** REVIEW Terminal
-#+BEGIN_SRC emacs-lisp
-(use-package sane-term
-  :ensure t
-  :bind (("<f10>" . sane-term-create)))
-#+END_SRC
-
-*** Open terminal from emacs
-#+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "<f12>") (kbd "M-& terminator"))
-(add-to-list 'display-buffer-alist (cons "\\*Async Shell Command\\*.*" (cons #'display-buffer-no-window nil)))
-#+END_SRC
-
-** REVIEW Windows
-#+BEGIN_SRC emacs-lisp
-(windmove-default-keybindings)
-
-;; Make windmove work in org-mode:
-(add-hook 'org-shiftup-final-hook 'windmove-up)
-(add-hook 'org-shiftleft-final-hook 'windmove-left)
-(add-hook 'org-shiftdown-final-hook 'windmove-down)
-(add-hook 'org-shiftright-final-hook 'windmove-right)
-#+END_SRC
-
-*** Split windows and switch at the same time
-From Daniel Mai https://github.com/danielmai/.emacs.d/blob/master/config.org
-#+BEGIN_SRC emacs-lisp
-(defun vsplit-other-window ()
-  "Splits the window vertically and switches to that window."
-  (interactive)
-  (split-window-vertically)
-  (other-window 1 nil))
-(defun hsplit-other-window ()
-  "Splits the window horizontally and switches to that window."
-  (interactive)
-  (split-window-horizontally)
-  (other-window 1 nil))
-
-(bind-key "C-x 2" 'vsplit-other-window)
-(bind-key "C-x 3" 'hsplit-other-window)
-#+END_SRC
-
-*** Resizing windows
-#+BEGIN_SRC emacs-lisp
-(defhydra hydra-resize (global-map "<f2>")
-  "resizing hydra"
-  ("<left>" shrink-window-horizontally "shrink horizontal")
-  ("<right>" enlarge-window-horizontally "enlarge horizontal")
-  ("<down>" shrink-window "shrink")
-  ("<up>" enlarge-window "shrink")
-  )
-#+END_SRC
-
-** Winner-mode!
-#+BEGIN_SRC emacs-lisp
-(winner-mode 1)
-#+END_SRC
-
-** Fullframe
-#+BEGIN_SRC emacs-lisp
-(use-package fullframe
-  :init
-  (fullframe magit-status magit-mode-quit-window)
-  (fullframe projectile-vc magit-mode-quit-window)
-  (fullframe magit-diff magit-quit-window)
-  (fullframe magit-diff-unstaged magit-quit-window)
-  (fullframe magit-diff magit-mode-quit-window))
-#+END_SRC
-
-** SX-mode
-#+BEGIN_SRC emacs-lisp
-(use-package sx
-  :defer t
-  :config
-  (require 'sx-load))
-#+END_SRC
-
-** Markdown-mode
-#+BEGIN_SRC emacs-lisp
-(use-package markdown-mode
-  :defer t
-)
-#+END_SRC
-
-** web-mode
-#+BEGIN_SRC emacs-lisp
 (use-package web-mode
   :defer t
   :init
@@ -860,14 +641,26 @@ From Daniel Mai https://github.com/danielmai/.emacs.d/blob/master/config.org
   (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
+
   (setq web-mode-engines-alist
     '(("django"    . "\\.html\\'"))
     )
-  )
-#+END_SRC
 
-** REVIEW dired
-#+BEGIN_SRC emacs-lisp
+  (local-set-key (kbd "RET") 'newline-and-indent)
+  )
+
+(winner-mode 1)
+
+(use-package sx
+  :defer t
+  :config
+  (require 'sx-load))
+
+(use-package markdown-mode
+  :defer t
+)
+
 ;;narrow dired to match filter
 (use-package dired-narrow
   :bind (:map dired-mode-map
@@ -888,45 +681,83 @@ From Daniel Mai https://github.com/danielmai/.emacs.d/blob/master/config.org
               )))
 
 (add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
-#+END_SRC
 
-** define-word
-#+BEGIN_SRC emacs-lisp
 (use-package define-word
   :bind
   ("C-x d" . define-word-at-point)
   )
-#+END_SRC
 
-** Git-timemachine
-#+BEGIN_SRC emacs-lisp
 (use-package git-timemachine
   :defer t
   )
-#+END_SRC
 
-# ** REVIEW Git Gutter
-# #+BEGIN_SRC emacs-lisp
-# (use-package git-gutter+
-#   :init
-#   (global-git-gutter+-mode)
-#   :config
-#   (use-package git-gutter-fringe+)
-#   :diminish (git-gutter+-mode . "gg")
-#   )
-# #+END_SRC
-** IdoMode
-(ido-mode)
-** Showing path in frame title
-(setq frame-title-format
-      (list (format "%s %%S: %%j " (system-name))
-        '(buffer-file-name "%f" (dired-directory dired-directory "%b")))
-** TEMP
-#+BEGIN_SRC emacs-lisp
+(use-package fullframe
+  :init
+  (fullframe magit-status magit-mode-quit-window)
+  (fullframe projectile-vc magit-mode-quit-window)
+  (fullframe magit-diff magit-quit-window)
+  (fullframe magit-diff-unstaged magit-quit-window)
+  (fullframe magit-diff magit-mode-quit-window))
+
+(windmove-default-keybindings)
+
+;; Make windmove work in org-mode:
+(add-hook 'org-shiftup-final-hook 'windmove-up)
+(add-hook 'org-shiftleft-final-hook 'windmove-left)
+(add-hook 'org-shiftdown-final-hook 'windmove-down)
+(add-hook 'org-shiftright-final-hook 'windmove-right)
+
+(defun vsplit-other-window ()
+  "Splits the window vertically and switches to that window."
+  (interactive)
+  (split-window-vertically)
+  (other-window 1 nil))
+(defun hsplit-other-window ()
+  "Splits the window horizontally and switches to that window."
+  (interactive)
+  (split-window-horizontally)
+  (other-window 1 nil))
+
+(bind-key "C-x 2" 'vsplit-other-window)
+(bind-key "C-x 3" 'hsplit-other-window)
+
+(defhydra hydra-resize (global-map "<f2>")
+  "resizing hydra"
+  ("<left>" shrink-window-horizontally "shrink horizontal")
+  ("<right>" enlarge-window-horizontally "enlarge horizontal")
+  ("<down>" shrink-window "shrink")
+  ("<up>" enlarge-window "shrink")
+  )
+
+(defun copy-line (arg)
+  "Copy lines (as many as prefix argument) in the kill ring.
+    Ease of use features:
+    - Move to start of next line.
+    - Appends the copy on sequential calls.
+    - Use newline as last char even on the last line of the buffer.
+    - If region is active, copy its lines."
+  (interactive "p")
+  (let ((beg (line-beginning-position))
+        (end (line-end-position arg)))
+    (when mark-active
+      (if (> (point) (mark))
+          (setq beg (save-excursion (goto-char (mark)) (line-beginning-position)))
+        (setq end (save-excursion (goto-char (mark)) (line-end-position)))))
+    (if (eq last-command 'copy-line)
+        (kill-append (buffer-substring beg end) (< end beg))
+      (kill-ring-save beg end)))
+  (kill-append "\n" nil)
+  (beginning-of-line (or (and arg (1+ arg)) 2))
+  (if (and arg (not (= 1 arg))) (message "%d lines copied" arg)))
+
+(global-set-key (kbd "C-S-l") 'copy-line)
+
+(use-package sane-term
+  :ensure t
+  :bind (("<f10>" . sane-term-create)))
+
 (setq org-use-speed-commands t)
 ;; volatile highlights - temporarily highlight changes from pasting etc
 (use-package volatile-highlights
   :config
   (volatile-highlights-mode t))
-#+END_SRC
-   

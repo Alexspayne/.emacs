@@ -1,17 +1,4 @@
 
-;; Open this config file
-(global-set-key (kbd "C-c s")
-                (lambda () (interactive) (find-file "~/.emacs.d/settings.org")))
-
-(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
-(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(if (fboundp 'tooltip-mode) (tooltip-mode -1))
-(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
-
-(when window-system
-  (setq frame-title-format '(buffer-file-name "%f" ("%b")))
-  (add-hook 'window-setup-hook 'toggle-frame-maximized t))
-
 ;; Emacs lisp files
 (add-to-list 'load-path "~/.emacs.d/elisp/")
 
@@ -28,6 +15,48 @@
 
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
+
+;;This is for replacement of a condition for a the TCPA function.
+(defun cellphone-replace ()
+(interactive)                           
+  (while (search-forward "\(Cellphone and Outbound" nil t)
+    (replace-match "\(application.Current.User.GetInfoNode(\"D_PHONE_TYPE\") == \"Wireless\" && !TheApplication.bInboundCall" nil t))
+)
+
+(global-set-key (kbd "C-c l") 'cellphone-replace)
+
+;(setq exec-path (cons (expand-file-name "~/.gem/ruby/1.9.1/") exec-path))
+
+(load-file "~/.emacs.d/robot-mode-master/robot-mode.el")
+(add-to-list 'auto-mode-alist '("\\.robot\\'" . robot-mode))
+
+(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'tooltip-mode) (tooltip-mode -1))
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+
+(when window-system
+  (setq frame-title-format '(buffer-file-name "%f" ("%b")))
+  (add-hook 'window-setup-hook 'toggle-frame-maximized t))
+
+(setq org-clock-persist 'history)
+  (org-clock-persistence-insinuate)
+
+(global-set-key (kbd "C-c j") 'org-journal-new-entry)
+;;Now I just have to figure out how to get this to go to a specific window instead of jumping over one I already have up.
+
+(global-set-key (kbd "C-c t")
+                (lambda () (interactive) (org-time-stamp "HH:MM")))
+
+(global-set-key (kbd "C-c w")
+                (lambda () (interactive) (find-file "~/Dropbox/WebDev/WebDev.org")))
+
+(global-set-key (kbd "C-c d")
+                (lambda () (interactive) (find-file "~/Dropbox/WebDev/DailyGoalSetting.org")))
+
+;; Open this config file
+(global-set-key (kbd "C-c s")
+                (lambda () (interactive) (find-file "~/.emacs.d/settings.org")))
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -163,23 +192,25 @@
 (setq org-hide-leading-stars t)
 (add-hook 'org-mode-hook 'org-indent-mode)
 
+;;I use visual line mode in org mode because I do so much writing in my org files.
+(add-hook 'org-mode-hook 'visual-line-mode)
 ;; Open .org and .txt files in org-mode
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 (add-to-list 'auto-mode-alist '("\\.txt\\'" . org-mode))
 
+
 (add-hook 'org-agenda-finalize-hook
       (lambda () (remove-text-properties
          (point-min) (point-max) '(mouse-face t))))
+
+;; I like to see the total hours in my clocks instead of cumulative days.
+(setq org-time-clocksum-format (quote (:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)))
 
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-ca" 'corgi-org-agenda)
 
 (define-key org-agenda-mode-map "d" 'org-agenda-deadline)
 (define-key org-agenda-mode-map "s" 'org-agenda-schedule)
-
-;; Open this config file
-(global-set-key (kbd "C-c s")
-        (lambda () (interactive) (find-file "~/.emacs.d/settings.org")))
 
 ;; bindings for capture templates
 (define-key global-map "\C-ci" ;inbox
@@ -299,50 +330,6 @@
  '((python . t)
    (sh . t)))
 
-(use-package deft
-    :defer t
-    :commands deft-new-file-named
-    :config
-    (setq deft-directory "~/Dropbox/org_files")
-    (setq deft-default-extension "org")
-    (setq deft-text-mode 'org-mode)
-    (setq deft-use-filename-as-title t)
-    (setq deft-recursive t)
-    (setq deft-use-filter-string-for-filename t)
-    :bind (("C-c d" . deft)))
-  ;;(setq deft-auto-save-interval 0)
-
-(defun es/make-scratches-in-deft ()
-  "save a new file to deft with a unique name based on current time
-The file will be uniquely named with xscratch + yeardatehourminutesecond"
-  (interactive)
-  (let ((today-string (concat (substring (current-time-string) 20)
-                  (substring (current-time-string) 4 7)
-                  (substring (current-time-string) 8 10)
-                  (substring (current-time-string) 11 13)
-                  (substring (current-time-string) 14 16)
-                  (substring (current-time-string) 17 19))))
-    (deft-new-file-named (concat "xscratch" today-string))))
-
-(global-set-key (kbd "<f9>") 'es/make-scratches-in-deft)
-
-(use-package projectile
-  :defer t
-  :diminish projectile-mode
-  :config
-  (progn
-    (setq projectile-enable-caching t)
-    (setq projectile-indexing-method 'alien)
-    (setq projectile-completion-system 'default)
-    (setq projectile-switch-project-action 'helm-projectile)
-    (projectile-global-mode)))
-
-(use-package helm-projectile
-  :defer t
-  :commands helm-projectile-find-file
-  :init
-  (helm-projectile-on))
-
 (defun smarter-move-beginning-of-line (arg)
   "Move point back to indentation of beginning of line.
 
@@ -411,6 +398,23 @@ Repeated invocations toggle between the two most recently open buffers."
   :config
   (setq helm-ag-insert-at-point 'symbol)
   )
+
+(use-package projectile
+  :defer t
+  :diminish projectile-mode
+  :config
+  (progn
+    (setq projectile-enable-caching t)
+    (setq projectile-indexing-method 'alien)
+    (setq projectile-completion-system 'default)
+    (setq projectile-switch-project-action 'helm-projectile)
+    (projectile-global-mode)))
+
+(use-package helm-projectile
+  :defer t
+  :commands helm-projectile-find-file
+  :init
+  (helm-projectile-on))
 
 ;;
 ;; ace jump mode major function
@@ -494,8 +498,9 @@ Repeated invocations toggle between the two most recently open buffers."
     (key-chord-define-global "MM" 'hydra-modes/body)
     (key-chord-define-global "FF" 'delete-other-windows)
     (key-chord-define-global "GG" 'magit-status)
-    (key-chord-define-global "SS" 'helm-swoop-back-to-last-point)
+    ;; (key-chord-define-global "SS" 'helm-swoop-back-to-last-point) ;;I type SS too much.
     (key-chord-define-global "DD" 'dired-jump)
+
     )
   )
 
@@ -537,7 +542,7 @@ Repeated invocations toggle between the two most recently open buffers."
     (yas-global-mode)
     (add-hook 'term-mode-hook (lambda()
                                 (setq yas-dont-activate t)))
-    (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
+;;  (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
     (define-key yas-minor-mode-map (kbd "<tab>") nil)
     (define-key yas-minor-mode-map (kbd "TAB") nil)
     (define-key yas-minor-mode-map (kbd "SPC") #'yas-expand)
@@ -576,21 +581,28 @@ Repeated invocations toggle between the two most recently open buffers."
          ("M-P". mc/mark-previous-like-this)
          ("C-S-<mouse-1> " . mc/add-cursor-on-click)))
 
+(use-package flyspell)
+
+;;I want to have spellcheck work in org and journal files.
+(add-hook 'org-mode-hook 'flyspell-mode)
+
+;; easy spell check
+(global-set-key (kbd "<f8>") 'ispell-word)
+(global-set-key (kbd "C-S-<f8>") 'flyspell-mode)
+(global-set-key (kbd "C-M-<f8>") 'flyspell-buffer)
+(global-set-key (kbd "C-<f8>") 'flyspell-check-previous-highlighted-word)
+(defun flyspell-check-next-highlighted-word ()
+  "Custom function to spell check next highlighted word"
+  (interactive)
+  (flyspell-goto-next-error)
+  (ispell-word)
+  )
+(global-set-key (kbd "M-<f8>") 'flyspell-check-next-highlighted-word)
+
 (use-package flycheck
   :init
   :disabled t
   (global-flycheck-mode)
-  )
-
-(use-package company
-  :ensure t
-  :config
-  (global-company-mode 1)
-  (setq company-idle-delay 0)
-  (setq company-tooltip-limit 15)
-  (setq company-minimum-prefix-length 2)
-  ;; (setq company-tooltip-flip-when-above t)
-  ;; (setq company-dabbrev-ignore-case 'keep-prefix)
   )
 
 (use-package auto-complete
@@ -603,46 +615,97 @@ Repeated invocations toggle between the two most recently open buffers."
     (add-hook 'sql-interactive-mode-hook (lambda () (auto-complete-mode 1) (company-mode)))
 )
 
-(use-package undo-tree
+(use-package company
   :ensure t
-  :diminish undo-tree-mode
   :config
-  (progn
-    (global-undo-tree-mode)
-    (setq undo-tree-visualizer-timestamps t)
-    (setq undo-tree-visualizer-diff t))
-  :bind ("C-/" . undo-tree-undo)
+;;I won't use company mode at all until I can figure out how to turn it off for org files.   
+;;  (global-company-mode)
+  (setq company-idle-delay 0)
+  (setq company-tooltip-limit 15)
+  (setq company-minimum-prefix-length 2)
+  ;; (setq company-tooltip-flip-when-above t)
+  (setq company-dabbrev-ignore-case 'keep-prefix)
+  (setq company-dabbrev-downcase nil)
+
+;;Instead of running company mode globally (It's really annoying in Org-Mode)
+;;I will just add hooks gere to run it with certain major modes.
+(add-hook 'js2-mode-hook 'company-mode)
+(add-hook 'js-mode-hook 'company-mode)
+(add-hook 'web-mode-hook 'company-mode)
+(add-hook 'css-mode-hook 'company-mode)
   )
 
-(defun copy-line (arg)
-  "Copy lines (as many as prefix argument) in the kill ring.
-    Ease of use features:
-    - Move to start of next line.
-    - Appends the copy on sequential calls.
-    - Use newline as last char even on the last line of the buffer.
-    - If region is active, copy its lines."
-  (interactive "p")
-  (let ((beg (line-beginning-position))
-        (end (line-end-position arg)))
-    (when mark-active
-      (if (> (point) (mark))
-          (setq beg (save-excursion (goto-char (mark)) (line-beginning-position)))
-        (setq end (save-excursion (goto-char (mark)) (line-end-position)))))
-    (if (eq last-command 'copy-line)
-        (kill-append (buffer-substring beg end) (< end beg))
-      (kill-ring-save beg end)))
-  (kill-append "\n" nil)
-  (beginning-of-line (or (and arg (1+ arg)) 2))
-  (if (and arg (not (= 1 arg))) (message "%d lines copied" arg)))
+(use-package web-mode
+  :defer t
+  :init
+  (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
 
-(global-set-key (kbd "C-S-l") 'copy-line)
+  (setq web-mode-engines-alist
+    '(("django"    . "\\.html\\'"))
+    )
 
-(use-package sane-term
+  (local-set-key (kbd "RET") 'newline-and-indent)
+  (add-hook 'web-mode-hook 'linum-mode)
+  )
+
+(winner-mode 1)
+
+(add-hook 'php-mode-hook 'linum-mode)
+
+(use-package sx
+  :defer t
+  :config
+  (require 'sx-load))
+
+(use-package markdown-mode
+  :defer t
+)
+
+;;narrow dired to match filter
+(use-package dired-narrow
+  :bind (:map dired-mode-map
+              ("/" . dired-narrow)))
+
+
+;;preview files in dired
+(use-package peep-dired
   :ensure t
-  :bind (("<f10>" . sane-term-create)))
+  :defer t ; don't access `dired-mode-map' until `peep-dired' is loaded
+  :bind (:map dired-mode-map
+              ("P" . peep-dired)))
 
-(global-set-key (kbd "<f12>") (kbd "M-& terminator"))
-(add-to-list 'display-buffer-alist (cons "\\*Async Shell Command\\*.*" (cons #'display-buffer-no-window nil)))
+(setq dired-omit-files
+      (rx (or (seq bol (? ".") "#")         ;; emacs autosave files
+              (seq "~" eol)                 ;; backup-files
+              (seq ".pyc" eol)
+              )))
+
+(add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
+
+(use-package define-word
+  :bind
+  ("C-x d" . define-word-at-point)
+  )
+
+(use-package git-timemachine
+  :defer t
+  )
+
+(use-package fullframe
+  :init
+  (fullframe magit-status magit-mode-quit-window)
+  (fullframe projectile-vc magit-mode-quit-window)
+  (fullframe magit-diff magit-quit-window)
+  (fullframe magit-diff-unstaged magit-quit-window)
+  (fullframe magit-diff magit-mode-quit-window))
 
 (windmove-default-keybindings)
 
@@ -674,70 +737,32 @@ Repeated invocations toggle between the two most recently open buffers."
   ("<up>" enlarge-window "shrink")
   )
 
-(winner-mode 1)
+(defun copy-line (arg)
+  "Copy lines (as many as prefix argument) in the kill ring.
+    Ease of use features:
+    - Move to start of next line.
+    - Appends the copy on sequential calls.
+    - Use newline as last char even on the last line of the buffer.
+    - If region is active, copy its lines."
+  (interactive "p")
+  (let ((beg (line-beginning-position))
+        (end (line-end-position arg)))
+    (when mark-active
+      (if (> (point) (mark))
+          (setq beg (save-excursion (goto-char (mark)) (line-beginning-position)))
+        (setq end (save-excursion (goto-char (mark)) (line-end-position)))))
+    (if (eq last-command 'copy-line)
+        (kill-append (buffer-substring beg end) (< end beg))
+      (kill-ring-save beg end)))
+  (kill-append "\n" nil)
+  (beginning-of-line (or (and arg (1+ arg)) 2))
+  (if (and arg (not (= 1 arg))) (message "%d lines copied" arg)))
 
-(use-package fullframe
-  :init
-  (fullframe magit-status magit-mode-quit-window)
-  (fullframe projectile-vc magit-mode-quit-window)
-  (fullframe magit-diff magit-quit-window)
-  (fullframe magit-diff-unstaged magit-quit-window)
-  (fullframe magit-diff magit-mode-quit-window))
+(global-set-key (kbd "C-S-l") 'copy-line)
 
-(use-package sx
-  :defer t
-  :config
-  (require 'sx-load))
-
-(use-package markdown-mode
-  :defer t
-)
-
-(use-package web-mode
-  :defer t
-  :init
-  (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-  (setq web-mode-engines-alist
-    '(("django"    . "\\.html\\'"))
-    )
-  )
-
-;;narrow dired to match filter
-(use-package dired-narrow
-  :bind (:map dired-mode-map
-              ("/" . dired-narrow)))
-
-
-;;preview files in dired
-(use-package peep-dired
+(use-package sane-term
   :ensure t
-  :defer t ; don't access `dired-mode-map' until `peep-dired' is loaded
-  :bind (:map dired-mode-map
-              ("P" . peep-dired)))
-
-(setq dired-omit-files
-      (rx (or (seq bol (? ".") "#")         ;; emacs autosave files
-              (seq "~" eol)                 ;; backup-files
-              (seq ".pyc" eol)
-              )))
-
-(add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
-
-(use-package define-word
-  :bind
-  ("C-x d" . define-word-at-point)
-  )
-
-(use-package git-timemachine
-  :defer t
-  )
+  :bind (("<f10>" . sane-term-create)))
 
 (setq org-use-speed-commands t)
 ;; volatile highlights - temporarily highlight changes from pasting etc

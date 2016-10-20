@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: eemail
+# key: eemail
+# --
+$1((application.Current.User.GetInfoNode("D_VALID_EMAIL") != null) && (application.Current.User.GetInfoNode("D_VALID_EMAIL") != ""))$2
