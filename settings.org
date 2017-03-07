@@ -44,11 +44,12 @@
    (C . t)))
 
 (defun my-org-confirm-babel-evaluate (lang body)
-  (some
-   (member lang '("python"))
-   (member lang '("emacs-lisp"))
-   (member lang '("C++"))
-   )
+  (not (or
+	(member lang '("python"))
+	(member lang '("emacs-lisp"))
+	(member lang '("C++"))
+	))
+
   )
 
 (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
@@ -91,11 +92,11 @@
 #+END_SRC
 
 #+BEGIN_SRC python :results output
-print "It works!!!" + "YAY"
+print "It works!!!" + "YAY" ' ... still works'
 #+END_SRC
 
 #+RESULTS:
-: It works!!!YAY
+: It works!!!YAY ... still works
 
 ** Work Commands
 #+BEGIN_SRC emacs-lisp
@@ -143,6 +144,12 @@ C-c <right redo
 
 ** Robot Mode
 #+BEGIN_SRC emacs-lisp
+<<<<<<< HEAD
+=======
+; If I want a robot-mode, I'll have to write it myself.  This one isn't very good.
+; Also... I'd probably want to write it for Atom or VS Code.  Well there are already good robot mode for those.
+; I could hack them to make them better though.
+>>>>>>> a020f7d927b0a671a70ce3b1b73d22c87aa7526d
 ;(load-file "~/.emacs.d/robot-mode-master/robot-mode.el")
 ;(add-to-list 'auto-mode-alist '("\\.robot\\'" . robot-mode))
 
@@ -190,6 +197,7 @@ point reaches the beginning or end of the buffer, stop there."
       (move-beginning-of-line 1))))
 
 (global-set-key (kbd "C-a") 'smarter-move-beginning-of-line)
+<<<<<<< HEAD
 
 (defun my/switch-to-previous-buffer ()
   "Switch to previously open buffer.
@@ -220,6 +228,38 @@ Repeated invocations toggle between the two most recently open buffers."
 		(lambda () (interactive) (find-file "~/.emacs.d/settings.org")))
 #+END_SRC
 
+=======
+
+(defun my/switch-to-previous-buffer ()
+  "Switch to previously open buffer.
+Repeated invocations toggle between the two most recently open buffers."
+  (interactive)
+  (switch-to-buffer (other-buffer (current-buffer) 1)))
+#+END_SRC
+
+*** Personal Shortcuts
+**** Shortcut to place timestamp
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-c t")
+		(lambda () (interactive) (org-time-stamp "HH:MM")))
+#+END_SRC
+
+**** Shortcuts to org files
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-c p")
+		(lambda () (interactive) (find-file "~/Dropbox/WebDev/Ob.org")))
+(global-set-key (kbd "C-c d") ; d for Daily
+		(lambda () (interactive) (find-file "~/Dropbox/WebDev/DailyGoalSetting.org")))
+(global-set-key (kbd "C-c e") ; e for Employment
+		(lambda () (interactive) (find-file "~/Dropbox/WebDev/Work.org")))
+(global-set-key (kbd "C-c w") ; w for What a ton of fun!  Personal Projects
+		(lambda () (interactive) (find-file "~/Dropbox/WebDev/Projects.org")))
+;; Open this config file
+(global-set-key (kbd "C-c s") ; s for Settings
+		(lambda () (interactive) (find-file "~/.emacs.d/settings.org")))
+#+END_SRC
+
+>>>>>>> a020f7d927b0a671a70ce3b1b73d22c87aa7526d
 *** Windows
 #+BEGIN_SRC emacs-lisp
 (windmove-default-keybindings)
@@ -348,6 +388,7 @@ Repeated invocations toggle between the two most recently open buffers."
 
 ** REVIEW Helm-ag
 Still don't know what this does.
+TODO: Make it so helm doesn't take over th
 #+BEGIN_SRC emacs-lisp
 (use-package helm-ag
   :defer t
