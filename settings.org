@@ -3,6 +3,7 @@
 :PROPERTIES:
 :VISIBILITY: children
 :END:      
+
 ** MELPA and other repositories
 #+BEGIN_SRC emacs-lisp
 ;; Emacs lisp files
@@ -18,11 +19,24 @@
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 
 (package-initialize)
-
-;(setq custom-file "~/.emacs.d/custom.el")
-;(load custom-file)
 #+END_SRC
+
+#+RESULTS:
+: t
+** Use-package
+#+BEGIN_SRC emacs-lisp
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(setq use-package-always-ensure t)
+(setq use-package-verbose t)
+
+(require 'use-package)
+#+END_SRC
+
 ** Babel
+[[http://stackoverflow.com/questions/5902847/how-do-i-apply-or-to-a-list-in-elisp][Here is the stack answer about using the 'some' function.]]
 #+BEGIN_SRC emacs-lisp
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -30,11 +44,19 @@
    (C . t)))
 
 (defun my-org-confirm-babel-evaluate (lang body)
-  (not (member lang '("python")))
-  (not (member lang '("C++"))))
+  (not (or
+	(member lang '("python"))
+	(member lang '("emacs-lisp"))
+	(member lang '("C++"))
+	))
+  )
 
 (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
 #+END_SRC
+
+#+RESULTS:
+: my-org-confirm-babel-evaluate
+
 ** Python
 #+BEGIN_SRC emacs-lisp
 ;(require 'flycheck-pyflakes)
@@ -72,11 +94,11 @@
 #+END_SRC
 
 #+BEGIN_SRC python :results output
-print "It works!!!" + "YAY"
+print "It works!!!" + "YAY" ' ... still works'
 #+END_SRC
 
 #+RESULTS:
-: It works!!!YAY
+: It works!!!YAY ... still works
 
 ** Work Commands
 #+BEGIN_SRC emacs-lisp
@@ -101,30 +123,6 @@ https://tuhdo.github.io/c-ide.html
 #+RESULTS:
 : vr/isearch-forward
 
-** Personal Shortcuts
-*** Shortcut to place timestamp
-#+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-c t")
-		(lambda () (interactive) (org-time-stamp "HH:MM")))
-#+END_SRC
-
-*** Shortcuts to org files
-At work, ~/ is my roaming folder. (windows)
-But at home, ~/ is my home/user folder. Augh..
-#+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-c p")
-		(lambda () (interactive) (find-file "~/Dropbox/WebDev/Ob.org")))
-(global-set-key (kbd "C-c d") ; d for Daily
-		(lambda () (interactive) (find-file "~/Dropbox/WebDev/DailyGoalSetting.org")))
-(global-set-key (kbd "C-c e") ; e for Employment
-		(lambda () (interactive) (find-file "~/Dropbox/WebDev/Work.org")))
-(global-set-key (kbd "C-c w") ; w for What a ton of fun!  Personal Projects
-		(lambda () (interactive) (find-file "~/Dropbox/WebDev/Projects.org")))
-;; Open this config file
-(global-set-key (kbd "C-c s") ; s for Settings
-		(lambda () (interactive) (find-file "~/.emacs.d/settings.org")))
-#+END_SRC
-
 ** Use-package
 #+BEGIN_SRC emacs-lisp
 (unless (package-installed-p 'use-package)
@@ -147,8 +145,11 @@ C-c <right redo
 
 ** Robot Mode
 #+BEGIN_SRC emacs-lisp
-(load-file "~/.emacs.d/robot-mode-master/robot-mode.el")
-(add-to-list 'auto-mode-alist '("\\.robot\\'" . robot-mode))
+; If I want a robot-mode, I'll have to write it myself.  This one isn't very good.
+; Also... I'd probably want to write it for Atom or VS Code.  Well there are already good robot mode for those.
+; I could hack them to make them better though.
+;(load-file "~/.emacs.d/robot-mode-master/robot-mode.el")
+;(add-to-list 'auto-mode-alist '("\\.robot\\'" . robot-mode))
 
 ;; Shortut for making allignment look good.  Doesn't work very well.
 (global-set-key (kbd "C-c a") (align-regexp (point-min) (point-max) "^\w.*[[:space:]]\{2,\}"))
@@ -166,49 +167,9 @@ C-c <right redo
   (setq frame-title-format '(buffer-file-name "%f" ("%b")))
   (add-hook 'window-setup-hook 'toggle-frame-maximized t))
 #+END_SRC
-
-** Windows
-#+BEGIN_SRC emacs-lisp
-(windmove-default-keybindings)
-
-;; Make windmove work in org-mode:
-(add-hook 'org-shiftup-final-hook 'windmove-up)
-(add-hook 'org-shiftleft-final-hook 'windmove-left)
-(add-hook 'org-shiftdown-final-hook 'windmove-down)
-(add-hook 'org-shiftright-final-hook 'windmove-right)
-#+END_SRC
-
-*** Split windows and switch at the same time
-From Daniel Mai https://github.com/danielmai/.emacs.d/blob/master/config.org
-#+BEGIN_SRC emacs-lisp
-(defun vsplit-other-window ()
-  "Splits the window vertically and switches to that window."
-  (interactive)
-  (split-window-vertically)
-  (other-window 1 nil))
-(defun hsplit-other-window ()
-  "Splits the window horizontally and switches to that window."
-  (interactive)
-  (split-window-horizontally)
-  (other-window 1 nil))
-
-(bind-key "C-x 2" 'vsplit-other-window)
-(bind-key "C-x 3" 'hsplit-other-window)
-#+END_SRC
-
-*** Resizing windows
-This is cool!  
-I never knew this was here.
-#+BEGIN_SRC emacs-lisp
-(defhydra hydra-resize (global-map "<f2>")
-  "resizing hydra"
-  ("<left>" shrink-window-horizontally "shrink horizontal")
-  ("<right>" enlarge-window-horizontally "enlarge horizontal")
-  ("<down>" shrink-window "shrink")
-  ("<up>" enlarge-window "shrink")
-  )
-#+END_SRC
-** Custom functions for navigation
+** Navigation
+*** Custom Navigation
+I borrowed these from someone else.
 #+BEGIN_SRC emacs-lisp
 (defun smarter-move-beginning-of-line (arg)
   "Move point back to indentation of beginning of line.
@@ -242,7 +203,71 @@ Repeated invocations toggle between the two most recently open buffers."
   (switch-to-buffer (other-buffer (current-buffer) 1)))
 #+END_SRC
 
-** REVIEW Key-chord
+*** Personal Shortcuts
+**** Shortcut to place timestamp
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-c t")
+		(lambda () (interactive) (org-time-stamp "HH:MM")))
+#+END_SRC
+
+**** Shortcuts to org files
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-c p")
+		(lambda () (interactive) (find-file "~/Dropbox/WebDev/Ob.org")))
+(global-set-key (kbd "C-c d") ; d for Daily
+		(lambda () (interactive) (find-file "~/Dropbox/WebDev/DailyGoalSetting.org")))
+(global-set-key (kbd "C-c e") ; e for Employment
+		(lambda () (interactive) (find-file "~/Dropbox/WebDev/Work.org")))
+(global-set-key (kbd "C-c w") ; w for What a ton of fun!  Personal Projects
+		(lambda () (interactive) (find-file "~/Dropbox/WebDev/Projects.org")))
+;; Open this config file
+(global-set-key (kbd "C-c s") ; s for Settings
+		(lambda () (interactive) (find-file "~/.emacs.d/settings.org")))
+#+END_SRC
+
+*** Windows
+#+BEGIN_SRC emacs-lisp
+(windmove-default-keybindings)
+
+;; Make windmove work in org-mode:
+(add-hook 'org-shiftup-final-hook 'windmove-up)
+(add-hook 'org-shiftleft-final-hook 'windmove-left)
+(add-hook 'org-shiftdown-final-hook 'windmove-down)
+(add-hook 'org-shiftright-final-hook 'windmove-right)
+#+END_SRC
+
+**** Split windows and switch at the same time
+From Daniel Mai https://github.com/danielmai/.emacs.d/blob/master/config.org
+#+BEGIN_SRC emacs-lisp
+(defun vsplit-other-window ()
+  "Splits the window vertically and switches to that window."
+  (interactive)
+  (split-window-vertically)
+  (other-window 1 nil))
+(defun hsplit-other-window ()
+  "Splits the window horizontally and switches to that window."
+  (interactive)
+  (split-window-horizontally)
+  (other-window 1 nil))
+
+(bind-key "C-x 2" 'vsplit-other-window)
+(bind-key "C-x 3" 'hsplit-other-window)
+#+END_SRC
+
+**** Resizing windows
+This is cool!  
+I never knew this was here.
+#+BEGIN_SRC emacs-lisp
+(defhydra hydra-resize (global-map "<f2>")
+  "resizing hydra"
+  ("<left>" shrink-window-horizontally "shrink horizontal")
+  ("<right>" enlarge-window-horizontally "enlarge horizontal")
+  ("<down>" shrink-window "shrink")
+  ("<up>" enlarge-window "shrink")
+  )
+#+END_SRC
+
+** Key-chord
 #+BEGIN_SRC emacs-lisp
 (defun es/switch-to-previous-buffer ()
   "Switch to previously open buffer.
@@ -327,6 +352,7 @@ Repeated invocations toggle between the two most recently open buffers."
 
 ** REVIEW Helm-ag
 Still don't know what this does.
+TODO: Make it so helm doesn't take over th
 #+BEGIN_SRC emacs-lisp
 (use-package helm-ag
   :defer t
