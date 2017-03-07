@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: pnum
-# key: pnum
-# --
-this.PhoneNumber_SP(application.Current.User.GetInfoNode("${1:PHONENUMBERINFONODEHERE}"),"${2:EN}")

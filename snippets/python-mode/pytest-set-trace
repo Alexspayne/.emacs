@@ -1,6 +1,0 @@
-# -*- mode: snippet; require-final-newline: nil -*-
-# name: pytest-set-trace
-# key: pttt
-# binding: direct-keybinding
-# --
-import pytest; pytest.set_trace()

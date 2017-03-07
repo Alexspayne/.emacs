@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: ntalk
-# key: ntalk
-# --
-<add key ="request-uri" value="sip:8552741383@209.252.186.168:15062;lid=8552741383;appl=.:https%3A%2F%2Fs3.amazonaws.com%2Fapps.elizacorp.com%2FEliza%2FELMC13_WEL_CALL_SP%2F24%2FELMC13_WEL_CALL_SP.exe;customername=${1:WellPoint};programname=${2:WPFEPAMDP2016_SP};applicationname=${3:WPFEPAMDP2016_CALL1_SP};ts.awsurl=https%3A%2F%2Fafw-icat.elizalive.com%2Faws01%2FAppFrameWork.asmx;did=8557426357;tollfreenumber=8557426357;calleridnumber=9785332044;xmode=0"/>
-    <add key="awsurl" value="https://afw-icat.elizalive.com/aws01/AppFrameWork.asmx"/>

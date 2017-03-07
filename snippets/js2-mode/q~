@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: q
-# key: q
-# --
-(application.Current.Session.GetResponse("${1:TAKING_NEW_MEDS}") ${2:=}= "${3:YES}")
