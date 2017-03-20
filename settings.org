@@ -49,10 +49,17 @@
 	(member lang '("emacs-lisp"))
 	(member lang '("C++"))
 	))
-
   )
 
 (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
+#+END_SRC
+
+** Iedit
+#+BEGIN_SRC emacs-lisp
+(use-package iedit
+  :defer t
+  )
+(require 'iedit)
 #+END_SRC
 
 ** Python
@@ -142,13 +149,14 @@ C-c <right redo
 (winner-mode 1)
 #+END_SRC
 
-** Robot Mode
+** Robot Mode 
 #+BEGIN_SRC emacs-lisp
-;(load-file "~/.emacs.d/robot-mode-master/robot-mode.el")
-;(add-to-list 'auto-mode-alist '("\\.robot\\'" . robot-mode))
+; Testing
+(if (file-exists-p "~/.emacs.d/robot-mode/robot-mode.el") (load-file "~/.emacs.d/robot-mode/robot-mode.el"))
+(add-to-list 'auto-mode-alist '("\\.robot\\'" . robot-mode))
 
 ;; Shortut for making allignment look good.  Doesn't work very well.
-(global-set-key (kbd "C-c a") (align-regexp (point-min) (point-max) "^\w.*[[:space:]]\{2,\}"))
+;(global-set-key (kbd "C-c a") (align-regexp (point-min) (point-max) "^\w.*[[:space:]]\{2,\}"))
 
 #+END_SRC
 ** GUI stuff
@@ -158,10 +166,11 @@ C-c <right redo
 (if (fboundp 'tooltip-mode) (tooltip-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
-; Not sure what this does.
+; This changes the title to the path of the file of the current buffer.
 (when window-system
-  (setq frame-title-format '(buffer-file-name "%f" ("%b")))
+  (setq frame-title-format '(buffer-file-name org-clock-current-task buffer-file-name " %f" ("%b")))
   (add-hook 'window-setup-hook 'toggle-frame-maximized t))
+
 #+END_SRC
 ** Navigation
 *** Custom Navigation
@@ -446,6 +455,11 @@ http://stackoverflow.com/questions/7174819/export-effort-and-clocksum-from-org-m
 
 ;; I like to see the total hours in my clocks instead of cumulative days.
 (setq org-time-clocksum-format (quote (:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)))
+
+;; Insert the Closed string with the timestamp of when the task was marked "Done"
+(setq org-log-done 'time)
+;; Another option:
+;;(setq org-log-done 'note)
 #+END_SRC
 *** Keybindings
 #+BEGIN_SRC emacs-lisp
@@ -645,3 +659,32 @@ https://www.youtube.com/watch?v=r_HW0EB67eY
 (global-semantic-idle-scheduler-mode 1)
 (semantic-mode 1)
 #+END_SRC
+*** GDB
+#+BEGIN_SRC emacs-lisp
+(setq
+ ;; use gdb-many-windows by default
+ gdb-many-windows t
+
+ ;; Non-nil means display source file containing the main routine at startup
+ gdb-show-main t
+ )
+#+END_SRC
+** Markdown-mode
+#+BEGIN_SRC emacs-lisp
+(use-package markdown-mode
+  :defer t
+  )
+#+END_SRC
+** Mobile-org
+CLOCK: [2017-03-08 Wed 22:02]--[2017-03-08 Wed 22:11] =>  0:09
+#+BEGIN_SRC emacs-lisp
+; I want to learn how to use mobile org.  I have the app but I haven't really linked it up with any of my org files.
+; I think I'd just create a file just for mobile.  But I'd be able to update it on my computer.
+; I'll add this to my backlog.
+#+END_SRC
+** Git
+*** Markdown Preview
+#+BEGIN_SRC emacs-lisp
+(use-package vmd-mode)
+#+END_SRC
+
