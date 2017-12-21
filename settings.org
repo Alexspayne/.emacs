@@ -221,7 +221,7 @@ Repeated invocations toggle between the two most recently open buffers."
 (global-set-key (kbd "C-c d") ; d for Daily
 		(lambda () (interactive) (find-file "~/Dropbox/WebDev/DailyGoalSetting.org")))
 (global-set-key (kbd "C-c e") ; e for Employment
-		(lambda () (interactive) (find-file "~/Dropbox/WebDev/Work.org")))
+		(lambda () (interactive) (find-file "~/Dropbox/Org/Work.org")))
 (global-set-key (kbd "C-c w") ; w for What a ton of fun!  Personal Projects
 		(lambda () (interactive) (find-file "~/Dropbox/WebDev/Projects.org")))
 ;; Open this config file
