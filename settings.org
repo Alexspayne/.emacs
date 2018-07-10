@@ -4,6 +4,35 @@
 :VISIBILITY: children
 :END:      
 
+** Sunrise Commander
+I'm not sure how I feel about this yet.
+
+#+BEGIN_SRC emacs-lisp
+;; (add-to-list 'load-path "~/.emacs.d/local/sunrise-commander")
+;; (require 'sunrise-commander)
+;; (require 'sunrise-x-buttons)
+;; (require 'sunrise-x-modeline)
+;; (add-to-list 'auto-mode-alist '("\\.srvm\\'" . sr-virtual-mode)) 
+#+END_SRC
+
+** Formatting
+
+*** Git mode line (vc-mode hack)
+This shows only the first 9 characters of the branch name and the lock/whatever symbol (":" or "-")
+Mostly got it from this answer:
+https://emacs.stackexchange.com/questions/10955/customize-vc-mode-appearance-in-mode-line
+Helpful for understanding advice and eval.
+#+BEGIN_SRC emacs-lisp
+(setcdr (assq 'vc-mode mode-line-format)
+        '((:eval (truncate-string-to-width (replace-regexp-in-string "^ Git" "" vc-mode) 10))))
+#+END_SRC
+
+*** No tabs, only spaces now.
+https://www.emacswiki.org/emacs/NoTabs
+#+BEGIN_SRC emacs-lisp
+(setq-default indent-tabs-mode nil)
+#+END_SRC
+
 ** MELPA and other repositories
 #+BEGIN_SRC emacs-lisp
 ;; Emacs lisp files
@@ -12,7 +41,6 @@
 (require 'package)
 
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-;(add-to-list 'package-archives '("elpy" . "https://jorgenschaefer.github.io/packages/") t)
 
 (when (< emacs-major-version 24)
   ;; For important compatibility libraries like cl-lib
@@ -96,16 +124,11 @@
 ;; the environment variable `WORKON_HOME` points to the right place
 #+END_SRC
 
-#+BEGIN_SRC python :results output
-print "It works!!!" + "YAY" ' ... still works'
-#+END_SRC
-
-#+RESULTS:
-: It works!!!YAY ... still works
-
-** Work Commands
+**** Black
 #+BEGIN_SRC emacs-lisp
-; Nobody here but us parens.
+(add-hook 'python-mode-hook 'blacken-mode)
+;; Setting line length to 100 for team agreement.
+(setq blacken-line-length 100)
 #+END_SRC
 ** Regex 
 https://tuhdo.github.io/c-ide.html
@@ -305,6 +328,28 @@ Repeated invocations toggle between the two most recently open buffers."
     )
   )
 #+END_SRC
+
+*** Pylint
+#+BEGIN_SRC emacs-lisp
+;; Configure flymake for Python
+(when (load "flymake" t)
+  (defun flymake-pylint-init ()
+    (let* ((temp-file (flymake-init-create-temp-buffer-copy
+                       'flymake-create-temp-inplace))
+           (local-file (file-relative-name
+                        temp-file
+                        (file-name-directory buffer-file-name))))
+      (list "epylint" (list local-file))))
+  (add-to-list 'flymake-allowed-file-name-masks
+               '("\\.py\\'" flymake-pylint-init)))
+
+;; Set as a minor mode for Python
+(add-hook 'python-mode-hook '(lambda () (flymake-mode)))
+#+END_SRC
+
+#+RESULTS:
+| (lambda nil (flymake-mode)) | elpy-mode | (lambda nil (set (make-local-variable (quote yas-indent-line)) (quote fixed))) | blacken-mode | linum-mode |
+
 ** Theme
 #+BEGIN_SRC emacs-lisp
 (use-package atom-one-dark-theme
@@ -685,4 +730,6 @@ CLOCK: [2017-03-08 Wed 22:02]--[2017-03-08 Wed 22:11] =>  0:09
 #+BEGIN_SRC emacs-lisp
 (use-package vmd-mode)
 #+END_SRC
+
+#+RESULTS:
 
