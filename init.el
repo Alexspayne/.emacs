@@ -24,13 +24,15 @@
  '(custom-safe-themes
    (quote
     ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
+ '(elpy-modules
+   (quote
+    (elpy-module-company elpy-module-eldoc elpy-module-flymake elpy-module-pyvenv elpy-module-highlight-indentation elpy-module-yasnippet elpy-module-sane-defaults)))
  '(exec-path
    (quote
     ("/usr/bin" "/bin" "/usr/sbin" "/sbin" "/Applications/Emacs.app/Contents/MacOS/bin-x86_64-10_9" "/Applications/Emacs.app/Contents/MacOS/libexec-x86_64-10_9" "/Applications/Emacs.app/Contents/MacOS/libexec" "/Applications/Emacs.app/Contents/MacOS/bin" "/Library/Frameworks/Python.framework/Versions/3.6/bin/")))
  '(fci-rule-color "#3C3D37")
  '(flycheck-python-pylint-executable
    "/Library/Frameworks/Python.framework/Versions/2.7/bin/pylint")
- '(flymake-google-cpplint-command "cpplint")
  '(highlight-changes-colors (quote ("#FD5FF0" "#AE81FF")))
  '(highlight-tail-colors
    (quote
@@ -42,6 +44,9 @@
      ("#A75B00" . 70)
      ("#F309DF" . 85)
      ("#3C3D37" . 100))))
+ '(jdee-db-active-breakpoint-face-colors (cons "#000000" "#fd971f"))
+ '(jdee-db-requested-breakpoint-face-colors (cons "#000000" "#b6e63e"))
+ '(jdee-db-spec-breakpoint-face-colors (cons "#000000" "#525254"))
  '(magit-diff-use-overlays nil)
  '(mode-line-format
    (quote
@@ -54,9 +59,11 @@
  '(org-journal-dir "~/Dropbox/journal")
  '(package-selected-packages
    (quote
-    (groovy-mode smart-mode-line blacken vdm-mode vmd-mode code-library org-mobile-sync markdown-mode google-c-style flymake-google-cpplint iedit org xah-math-input wrap-region web-mode volatile-highlights visual-regexp-steroids virtualenvwrapper use-package transpose-frame tagedit syntax-subword sx smex smartscan shell-current-directory scss-mode sane-term rainbow-mode rainbow-delimiters python-mode py-autopep8 popup-complete peep-dired ox-twbs ox-qmd ox-jira ox-gfm org-present org-journal org-bullets org-babel-eval-in-repl multiple-cursors monokai-theme magit key-chord js2-mode jquery-doc jedi ido-ubiquitous hydra helm-projectile helm-flyspell helm-flycheck helm-ag git-timemachine git-commit-mode fullframe flycheck-pyflakes fixmee fill-column-indicator expand-region exec-path-from-shell elpy ein dired-subtree dired-narrow define-word cpputils-cmake company-jedi clojure-mode-extra-font-locking cider arduino-mode anaconda-mode ac-html-angular)))
+    (isortify pipenv blacken vdm-mode code-library org-mobile-sync org xah-math-input wrap-region web-mode virtualenvwrapper transpose-frame tagedit syntax-subword sx smex smartscan shell-current-directory scss-mode sane-term rainbow-mode rainbow-delimiters python-mode popup-complete peep-dired ox-twbs ox-qmd ox-jira ox-gfm org-present org-babel-eval-in-repl multiple-cursors jquery-doc jedi ido-ubiquitous helm-projectile helm-flycheck git-timemachine git-commit-mode fullframe flycheck-pyflakes fixmee fill-column-indicator dired-subtree dired-narrow define-word cpputils-cmake company-jedi clojure-mode-extra-font-locking cider arduino-mode anaconda-mode ac-html-angular)))
  '(pos-tip-background-color "#FFFACE")
  '(pos-tip-foreground-color "#272822")
+ '(python-shell-interpreter "python")
+ '(server-use-tcp t)
  '(show-paren-mode t)
  '(user-emacs-directory-warning nil)
  '(vc-annotate-background nil)
@@ -81,6 +88,7 @@
      (340 . "#2790C3")
      (360 . "#66D9EF"))))
  '(vc-annotate-very-old-color nil)
+ '(visible-bell t)
  '(weechat-color-list
    (unspecified "#272822" "#3C3D37" "#F70057" "#F92672" "#86C30D" "#A6E22E" "#BEB244" "#E6DB74" "#40CAE4" "#66D9EF" "#FB35EA" "#FD5FF0" "#74DBCD" "#A1EFE4" "#F8F8F2" "#F8F8F0")))
 (custom-set-faces

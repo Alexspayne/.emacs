@@ -4,17 +4,27 @@
 :VISIBILITY: children
 :END:      
 
-** Sunrise Commander
-I'm not sure how I feel about this yet.
-
+** Custom Org-structure templates
 #+BEGIN_SRC emacs-lisp
-;; (add-to-list 'load-path "~/.emacs.d/local/sunrise-commander")
-;; (require 'sunrise-commander)
-;; (require 'sunrise-x-buttons)
-;; (require 'sunrise-x-modeline)
-;; (add-to-list 'auto-mode-alist '("\\.srvm\\'" . sr-virtual-mode)) 
+(add-to-list 'org-structure-template-alist '("es" "#+BEGIN_SRC emacs-lisp \n?\n#+END_SRC" "<src lang=\"python\">\n\n</src>"))
+(add-to-list 'org-structure-template-alist '("el" "#+BEGIN_SRC emacs-lisp \n?\n#+END_SRC" "<src lang=\"python\">\n\n</src>"))
+(add-to-list 'org-structure-template-alist '("p" "#+BEGIN_SRC python :results output\n?\n#+END_SRC" "<src lang=\"python\">\n\n</src>"))
 #+END_SRC
 
+** Future:
+Check out other people's configs and read through them, learn about nifty things and add to your own.
+https://github.com/munen/emacs.d/
+
+https://github.com/purcell/emacs.d
+
+And even better: follow this list of configs:
+https://github.com/caisah/emacs.dz
+
+Sacha Chua would be good.
+
+<2018-07-11 Wed 10:36>
+I started looking through some.
+I guess I can just pick stuff here and there.
 ** Formatting
 
 *** Git mode line (vc-mode hack)
@@ -41,14 +51,13 @@ https://www.emacswiki.org/emacs/NoTabs
 (require 'package)
 
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
 
 (when (< emacs-major-version 24)
   ;; For important compatibility libraries like cl-lib
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 #+END_SRC
 
-#+RESULTS:
-: t
 ** Use-package
 #+BEGIN_SRC emacs-lisp
 (unless (package-installed-p 'use-package)
@@ -89,6 +98,8 @@ https://www.emacswiki.org/emacs/NoTabs
 #+END_SRC
 
 ** Python
+
+**** Linum mode, offset, old comments
 #+BEGIN_SRC emacs-lisp
 ;(require 'flycheck-pyflakes)
 ;(add-hook 'python-mode-hook 'flycheck-mode)
@@ -111,8 +122,6 @@ https://www.emacswiki.org/emacs/NoTabs
 
 (setq python-indent-offset 4)
 
-(add-to-list 'org-structure-template-alist '("p" "#+BEGIN_SRC python :results output\n?\n#+END_SRC" "<src lang=\"python\">\n\n</src>"))
-
 ;path for virtual environments.
 ;; (add-dir-local-variable $WORKON_HOME 'C:\Users\PayneFamily\Dropbox\Python\envs')
 
@@ -122,6 +131,17 @@ https://www.emacswiki.org/emacs/NoTabs
 ;; note that setting `venv-location` is not necessary if you
 ;; use the default location (`~/.virtualenvs`), or if the
 ;; the environment variable `WORKON_HOME` points to the right place
+
+#+END_SRC
+
+**** Elpy
+#+BEGIN_SRC emacs-lisp
+; Activate elpy automatically
+(require 'package)
+
+
+(package-initialize)
+(elpy-enable)
 #+END_SRC
 
 **** Black
@@ -130,7 +150,43 @@ https://www.emacswiki.org/emacs/NoTabs
 ;; Setting line length to 100 for team agreement.
 (setq blacken-line-length 100)
 #+END_SRC
-** Regex 
+
+**** Set python venv for elpy
+#+BEGIN_SRC emacs-lisp 
+(setq elpy-rpc-python-command "~/Envs/.emacs.d-GQXW7O1A/bin/python3")
+(pyvenv-activate "/Users/apayne/Envs/.emacs.d-GQXW7O1A")
+
+#+END_SRC
+
+**** Default Python Interpreter
+#+BEGIN_SRC emacs-lisp
+;; Use Jupyter console for default intepreter
+(setq python-shell-interpreter "jupyter"
+      python-shell-interpreter-args "console --simple-prompt"
+      python-shell-prompt-detect-failure-warning nil)
+(add-to-list 'python-shell-completion-native-disabled-interpreters
+             "jupyter")
+#+END_SRC
+
+
+**** Flycheck
+#+BEGIN_SRC emacs-lisp
+; I disabled this because it runs way too slow on remote machines.  And just it runs too slow.
+;(add-hook 'after-init-hook #'global-flycheck-mode)
+
+#+END_SRC
+
+**** Pipenv
+#+BEGIN_SRC emacs-lisp 
+(use-package pipenv
+  :hook (python-mode . pipenv-mode)
+  :init
+  (setq
+   pipenv-projectile-after-switch-function
+   #'pipenv-projectile-after-switch-extended))
+#+END_SRC
+
+** Regex and multiple cursors
 https://tuhdo.github.io/c-ide.html
 #+BEGIN_SRC emacs-lisp
 ;; if the files are not already in the load path
@@ -141,14 +197,14 @@ https://tuhdo.github.io/c-ide.html
 (define-key global-map (kbd "C-c r") 'vr/replace)
 (define-key global-map (kbd "C-c q") 'vr/query-replace)
 ;; if you use multiple-cursors, this is for you:
+(use-package multiple-cursors)
+(require 'multiple-cursors)
 (define-key global-map (kbd "C-c m") 'vr/mc-mark)
 ;; to use visual-regexp-steroids's isearch instead of the built-in regexp isearch, also include the following lines:
 (define-key esc-map (kbd "C-r") 'vr/isearch-backward) ;; C-M-r
 (define-key esc-map (kbd "C-s") 'vr/isearch-forward) ;; C-M-s
 #+END_SRC
 
-#+RESULTS:
-: vr/isearch-forward
 
 ** Use-package
 #+BEGIN_SRC emacs-lisp
@@ -161,7 +217,7 @@ https://tuhdo.github.io/c-ide.html
 
 (require 'use-package)
 #+END_SRC
-** Winner-mode!
+** Winner-mode
 This keeps undo history for window layouts.
 It will be useful if for some reason a package removes windows.
 C-c <left> undo
@@ -347,9 +403,6 @@ Repeated invocations toggle between the two most recently open buffers."
 (add-hook 'python-mode-hook '(lambda () (flymake-mode)))
 #+END_SRC
 
-#+RESULTS:
-| (lambda nil (flymake-mode)) | elpy-mode | (lambda nil (set (make-local-variable (quote yas-indent-line)) (quote fixed))) | blacken-mode | linum-mode |
-
 ** Theme
 #+BEGIN_SRC emacs-lisp
 (use-package atom-one-dark-theme
@@ -416,7 +469,6 @@ TODO: Make it so helm doesn't take over th
   )
 #+END_SRC
 
-#+RESULTS:
 ** REVIEW Helm 
 #+BEGIN_SRC emacs-lisp
   (use-package helm
@@ -525,8 +577,6 @@ http://stackoverflow.com/questions/7174819/export-effort-and-clocksum-from-org-m
     (kbd "M-;") 'my-org-comment-dwim)	
 #+END_SRC
 
-#+RESULTS:
-: my-org-comment-dwim
 *** Speed Commands and Highlights
 #+BEGIN_SRC emacs-lisp
 (setq org-use-speed-commands t)
@@ -656,80 +706,15 @@ http://stackoverflow.com/questions/7174819/export-effort-and-clocksum-from-org-m
         org-src-preserve-indentation t
         org-src-tab-acts-natively t)
 #+END_SRC
-** REVIEW Company
-#+BEGIN_SRC emacs-lisp
-(use-package company)
-(require 'company)
-; Eh...
-;(add-hook 'after-init-hook 'global-company-mode)
-#+END_SRC
-** C++
-https://www.youtube.com/watch?v=r_HW0EB67eY
-*** Fly-Make for linting (Google style)
-#+BEGIN_SRC emacs-lisp
-(use-package flymake-google-cpplint)
-(defun my:flymake-google-init ()
-  (require 'flymake-google-cpplint)
-  (custom-set-variables
-   '(flymake-google-cpplint-command "cpplint"))
-  (flymake-google-cpplint-load)
-)
-(add-hook 'c++-mode-hook 'my:flymake-google-init)
-
-; start google-c-style with Emacs
-(use-package google-c-style)
-(require 'google-c-style)
-(add-hook 'c-mode-common-hook 'google-set-c-style)
-(add-hook 'c-mode-common-hook 'google-make-newline-indent)
-#+END_SRC
-*** Code completion
-#+BEGIN_SRC emacs-lisp
-(setq company-backends (delete 'company-semantic company-backends))
-(define-key c-mode-map  [(tab)] 'company-complete)
-(define-key c++-mode-map  [(tab)] 'company-complete)
-
-;; Using semantic
-; I see it adding a pick menu for autocomplete.
-; But it isn't using helm.  I think I'm ok with that though. For now.
-
-(use-package cc-mode)
-(use-package semantic)
-(require 'cc-mode)
-(require 'semantic)
-
-;These ones don't work on my work computer.
-(global-semanticdb-minor-mode 1)
-(global-semantic-idle-scheduler-mode 1)
-(semantic-mode 1)
-#+END_SRC
-*** GDB
-#+BEGIN_SRC emacs-lisp
-(setq
- ;; use gdb-many-windows by default
- gdb-many-windows t
-
- ;; Non-nil means display source file containing the main routine at startup
- gdb-show-main t
- )
-#+END_SRC
 ** Markdown-mode
 #+BEGIN_SRC emacs-lisp
 (use-package markdown-mode
   :defer t
   )
 #+END_SRC
-** Mobile-org
-CLOCK: [2017-03-08 Wed 22:02]--[2017-03-08 Wed 22:11] =>  0:09
-#+BEGIN_SRC emacs-lisp
-; I want to learn how to use mobile org.  I have the app but I haven't really linked it up with any of my org files.
-; I think I'd just create a file just for mobile.  But I'd be able to update it on my computer.
-; I'll add this to my backlog.
-#+END_SRC
 ** Git
 *** Markdown Preview
 #+BEGIN_SRC emacs-lisp
 (use-package vmd-mode)
 #+END_SRC
-
-#+RESULTS:
 

@@ -4,3 +4,5 @@
 !settings.org
 !init.el
 !.gitignore
+!Pipfile
+!Pipfile.lock
