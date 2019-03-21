@@ -158,17 +158,6 @@ https://www.emacswiki.org/emacs/NoTabs
 
 #+END_SRC
 
-**** Default Python Interpreter
-#+BEGIN_SRC emacs-lisp
-;; Use Jupyter console for default intepreter
-(setq python-shell-interpreter "jupyter"
-      python-shell-interpreter-args "console --simple-prompt"
-      python-shell-prompt-detect-failure-warning nil)
-(add-to-list 'python-shell-completion-native-disabled-interpreters
-             "jupyter")
-#+END_SRC
-
-
 **** Flycheck
 #+BEGIN_SRC emacs-lisp
 ; I disabled this because it runs way too slow on remote machines.  And just it runs too slow.
@@ -204,7 +193,6 @@ https://tuhdo.github.io/c-ide.html
 (define-key esc-map (kbd "C-r") 'vr/isearch-backward) ;; C-M-r
 (define-key esc-map (kbd "C-s") 'vr/isearch-forward) ;; C-M-s
 #+END_SRC
-
 
 ** Use-package
 #+BEGIN_SRC emacs-lisp
@@ -303,6 +291,8 @@ Repeated invocations toggle between the two most recently open buffers."
 		(lambda () (interactive) (find-file "~/Dropbox/Org/Work.org")))
 (global-set-key (kbd "C-c w") ; w for What a ton of fun!  Personal Projects
 		(lambda () (interactive) (find-file "~/Dropbox/WebDev/Projects.org")))
+(global-set-key (kbd "C-c k") ; k for knowledge base
+		(lambda () (interactive) (find-file "~/Dropbox/Org/KB.org")))
 ;; Open this config file
 (global-set-key (kbd "C-c s") ; s for Settings
 		(lambda () (interactive) (find-file "~/.emacs.d/settings.org")))
@@ -717,4 +707,3 @@ http://stackoverflow.com/questions/7174819/export-effort-and-clocksum-from-org-m
 #+BEGIN_SRC emacs-lisp
 (use-package vmd-mode)
 #+END_SRC
-

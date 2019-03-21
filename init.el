@@ -24,9 +24,11 @@
  '(custom-safe-themes
    (quote
     ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
+ '(elfeed-feeds nil)
  '(elpy-modules
    (quote
     (elpy-module-company elpy-module-eldoc elpy-module-flymake elpy-module-pyvenv elpy-module-highlight-indentation elpy-module-yasnippet elpy-module-sane-defaults)))
+ '(elpy-syntax-check-command "/Users/apayne/Envs/.emacs.d-GQXW7O1A/bin/flake8")
  '(exec-path
    (quote
     ("/usr/bin" "/bin" "/usr/sbin" "/sbin" "/Applications/Emacs.app/Contents/MacOS/bin-x86_64-10_9" "/Applications/Emacs.app/Contents/MacOS/libexec-x86_64-10_9" "/Applications/Emacs.app/Contents/MacOS/libexec" "/Applications/Emacs.app/Contents/MacOS/bin" "/Library/Frameworks/Python.framework/Versions/3.6/bin/")))
@@ -55,14 +57,20 @@
      "  " mode-line-modes mode-line-misc-info mode-line-end-spaces)))
  '(org-agenda-files
    (quote
-    ("~/Dropbox/WebDev/DailyGoalSetting.org" "~/Dropbox/Org/Work.org" "c:/Users/apayne/My Documents/emacs/bin/Dropbox/WebDev/Work.org" "~/Dropbox/org_files/da_guai.org")))
+    ("~/Dropbox/WebDev/DailyGoalSetting.org" "~/Dropbox/Org/Work.org" "~/Dropbox/org_files/da_guai.org")))
  '(org-journal-dir "~/Dropbox/journal")
+ '(org-pomodoro-finished-sound "/Users/apayne/Downloads/Store_Door_Chime.wav")
+ '(org-pomodoro-length 30)
+ '(org-pomodoro-long-break-sound " /Users/apayne/Downloads/Store_Door_Chime.wav")
+ '(org-pomodoro-short-break-sound " /Users/apayne/Downloads/Store_Door_Chime.wav")
+ '(org-pomodoro-start-sound " /Users/apayne/Downloads/Store_Door_Chime.wav")
  '(package-selected-packages
    (quote
-    (isortify pipenv blacken vdm-mode code-library org-mobile-sync org xah-math-input wrap-region web-mode virtualenvwrapper transpose-frame tagedit syntax-subword sx smex smartscan shell-current-directory scss-mode sane-term rainbow-mode rainbow-delimiters python-mode popup-complete peep-dired ox-twbs ox-qmd ox-jira ox-gfm org-present org-babel-eval-in-repl multiple-cursors jquery-doc jedi ido-ubiquitous helm-projectile helm-flycheck git-timemachine git-commit-mode fullframe flycheck-pyflakes fixmee fill-column-indicator dired-subtree dired-narrow define-word cpputils-cmake company-jedi clojure-mode-extra-font-locking cider arduino-mode anaconda-mode ac-html-angular)))
+    (elfeed-org elfeed jupyter json-mode docker-tramp dockerfile-mode docker-compose-mode org-wc wc-mode isortify pipenv blacken vdm-mode code-library org-mobile-sync org xah-math-input wrap-region web-mode virtualenvwrapper transpose-frame tagedit syntax-subword sx smex smartscan shell-current-directory scss-mode sane-term rainbow-mode rainbow-delimiters python-mode popup-complete peep-dired ox-twbs ox-qmd ox-jira ox-gfm org-present org-babel-eval-in-repl multiple-cursors jquery-doc jedi ido-ubiquitous helm-projectile helm-flycheck git-timemachine git-commit-mode fullframe flycheck-pyflakes fixmee fill-column-indicator dired-subtree dired-narrow define-word cpputils-cmake company-jedi clojure-mode-extra-font-locking cider arduino-mode anaconda-mode ac-html-angular)))
  '(pos-tip-background-color "#FFFACE")
  '(pos-tip-foreground-color "#272822")
- '(python-shell-interpreter "python")
+ '(python-shell-interpreter "/Users/apayne/Envs/.emacs.d-GQXW7O1A/bin/jupyter")
+ '(python-shell-interpreter-args "console --simple-prompt --kernel=emacs")
  '(server-use-tcp t)
  '(show-paren-mode t)
  '(user-emacs-directory-warning nil)
