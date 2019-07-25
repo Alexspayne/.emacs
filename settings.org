@@ -5,7 +5,9 @@
 :END:      
 
 ** Custom Org-structure templates
+Type <es or <el then tab to get an emacs-list source block.
 #+BEGIN_SRC emacs-lisp
+
 (add-to-list 'org-structure-template-alist '("es" "#+BEGIN_SRC emacs-lisp \n?\n#+END_SRC" "<src lang=\"python\">\n\n</src>"))
 (add-to-list 'org-structure-template-alist '("el" "#+BEGIN_SRC emacs-lisp \n?\n#+END_SRC" "<src lang=\"python\">\n\n</src>"))
 (add-to-list 'org-structure-template-alist '("p" "#+BEGIN_SRC python :results output\n?\n#+END_SRC" "<src lang=\"python\">\n\n</src>"))
@@ -696,6 +698,21 @@ http://stackoverflow.com/questions/7174819/export-effort-and-clocksum-from-org-m
         org-src-preserve-indentation t
         org-src-tab-acts-natively t)
 #+END_SRC
+
+*** REVIEW Org-Journal
+#+BEGIN_SRC emacs-lisp 
+(require 'org-journal)
+;; Set keybinding for new journal entry because it overlaps with org-goto from org mode.
+(global-set-key (kbd "C-c j") 'org-journal-new-entry)
+
+;; I moved these here from the customize code in init.el because I prefer it this way.
+(setq org-journal-dir "~/Dropbox/journal")
+(setq org-journal-file-type (quote yearly))
+#+END_SRC
+
+#+RESULTS:
+: yearly
+
 ** Markdown-mode
 #+BEGIN_SRC emacs-lisp
 (use-package markdown-mode
@@ -707,3 +724,72 @@ http://stackoverflow.com/questions/7174819/export-effort-and-clocksum-from-org-m
 #+BEGIN_SRC emacs-lisp
 (use-package vmd-mode)
 #+END_SRC
+** REVIEW Update path
+I need to include other stuff in path for emacs
+https://www.emacswiki.org/emacs/ExecPath
+#+BEGIN_SRC emacs-lisp
+(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
+(setq exec-path (append exec-path '("/usr/local/bin")))
+#+END_SRC
+
+#+RESULTS:
+| /usr/bin | /bin | /usr/sbin | /sbin | /Applications/Emacs.app/Contents/MacOS/bin-x86_64-10_9 | /Applications/Emacs.app/Contents/MacOS/libexec-x86_64-10_9 | /Applications/Emacs.app/Contents/MacOS/libexec | /Applications/Emacs.app/Contents/MacOS/bin | /Library/Frameworks/Python.framework/Versions/3.6/bin/ | /usr/local/bin | /usr/local/bin |
+** REVIEW Ace-mode
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path "/Users/apayne/.emacs.d/elpa/ace-jump-mode-20140616.815/")
+(autoload
+  'ace-jump-mode
+  "ace-jump-mode"
+  "Emacs quick move minor mode"
+  t)
+;you can select the key you prefer to
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+
+
+;enable a more powerful jump back function from ace jump mode
+
+(autoload
+  'ace-jump-mode-pop-mark
+  "ace-jump-mode"
+  "Ace jump back:-)"
+  t)
+(eval-after-load "ace-jump-mode"
+  '(ace-jump-mode-enable-mark-sync))
+(define-key global-map (kbd "C-x SPC") 'ace-jump-mode-pop-mark)
+#+END_SRC
+
+#+RESULTS:
+: ace-jump-mode-pop-mark
+** REVIEW ros
+#+BEGIN_SRC emacs-lisp 
+;; Rahul Org-mode Screenshot takes a screenshot with scrot -s (waits for screen
+;; selection), saves it as orgfileopened.org_YYYYMMDD_hhmmss.png, inserts 
+;; the link and turns on the display-inline-images, showing your screenshot directly
+;; to the org-file" 
+(add-hook 'org-mode-hook
+	  (lambda ()
+	  (defun ros ()
+	  (interactive)
+	  (let ((filename
+		 (concat "./"
+			 (file-name-nondirectory buffer-file-name)
+			 "_"
+			 (format-time-string "%Y%m%d_%H%M%S")
+			 ".png")))
+            (if (executable-find "scrot")
+                (call-process "scrot" nil nil nil "-s" filename)
+              (call-process "screencapture" nil nil nil "-s" filename))
+            (when (file-exists-p filename)
+              (insert (concat "[[" filename "]]")))
+	    (org-display-inline-images t t)))))
+#+END_SRC
+
+
+#+BEGIN_SRC emacs-lisp 
+ (if 1
+              (print 'true)
+            'very-falsa)
+#+END_SRC
+
+#+RESULTS:
+: true
