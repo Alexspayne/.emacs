@@ -31,7 +31,7 @@
  '(elpy-syntax-check-command "/Users/apayne/Envs/.emacs.d-GQXW7O1A/bin/flake8")
  '(exec-path
    (quote
-    ("/usr/bin" "/bin" "/usr/sbin" "/sbin" "/Applications/Emacs.app/Contents/MacOS/bin-x86_64-10_9" "/Applications/Emacs.app/Contents/MacOS/libexec-x86_64-10_9" "/Applications/Emacs.app/Contents/MacOS/libexec" "/Applications/Emacs.app/Contents/MacOS/bin" "/Library/Frameworks/Python.framework/Versions/3.6/bin/")))
+    ("/usr/bin" "/bin" "/usr/sbin" "/sbin" "/Applications/Emacs.app/Contents/MacOS/bin-x86_64-10_9" "/Applications/Emacs.app/Contents/MacOS/libexec-x86_64-10_9" "/Applications/Emacs.app/Contents/MacOS/libexec" "/Applications/Emacs.app/Contents/MacOS/bin" "/Library/Frameworks/Python.framework/Versions/3.6/bin/" "/usr/local/bin")))
  '(fci-rule-color "#3C3D37")
  '(flycheck-python-pylint-executable
    "/Library/Frameworks/Python.framework/Versions/2.7/bin/pylint")
@@ -57,16 +57,10 @@
      "  " mode-line-modes mode-line-misc-info mode-line-end-spaces)))
  '(org-agenda-files
    (quote
-    ("~/Dropbox/WebDev/DailyGoalSetting.org" "~/Dropbox/Org/Work.org" "~/Dropbox/org_files/da_guai.org")))
- '(org-journal-dir "~/Dropbox/journal")
- '(org-pomodoro-finished-sound "/Users/apayne/Downloads/Store_Door_Chime.wav")
- '(org-pomodoro-length 30)
- '(org-pomodoro-long-break-sound " /Users/apayne/Downloads/Store_Door_Chime.wav")
- '(org-pomodoro-short-break-sound " /Users/apayne/Downloads/Store_Door_Chime.wav")
- '(org-pomodoro-start-sound " /Users/apayne/Downloads/Store_Door_Chime.wav")
+    ("~/Dropbox/Org/Work.org" "~/Dropbox/WebDev/DailyGoalSetting.org" "~/Dropbox/org_files/da_guai.org")))
  '(package-selected-packages
    (quote
-    (elfeed-org elfeed jupyter json-mode docker-tramp dockerfile-mode docker-compose-mode org-wc wc-mode isortify pipenv blacken vdm-mode code-library org-mobile-sync org xah-math-input wrap-region web-mode virtualenvwrapper transpose-frame tagedit syntax-subword sx smex smartscan shell-current-directory scss-mode sane-term rainbow-mode rainbow-delimiters python-mode popup-complete peep-dired ox-twbs ox-qmd ox-jira ox-gfm org-present org-babel-eval-in-repl multiple-cursors jquery-doc jedi ido-ubiquitous helm-projectile helm-flycheck git-timemachine git-commit-mode fullframe flycheck-pyflakes fixmee fill-column-indicator dired-subtree dired-narrow define-word cpputils-cmake company-jedi clojure-mode-extra-font-locking cider arduino-mode anaconda-mode ac-html-angular)))
+    (org-pomodoro writegood-mode elpy magit per-buffer-theme load-theme-buffer-local poet-theme quelpa-use-package quelpa feebleline paradox diff-hl zone-sl key-quiz bongo rust-mode pycoverage jinja2-mode ace-jump-mode dtk shackle ag elfeed-org elfeed jupyter json-mode docker-tramp dockerfile-mode docker-compose-mode org-wc wc-mode isortify pipenv blacken vdm-mode code-library org-mobile-sync org xah-math-input wrap-region web-mode virtualenvwrapper transpose-frame tagedit syntax-subword sx smex smartscan shell-current-directory scss-mode sane-term rainbow-mode rainbow-delimiters python-mode popup-complete peep-dired ox-twbs ox-qmd ox-jira ox-gfm org-present org-babel-eval-in-repl multiple-cursors jquery-doc jedi ido-ubiquitous helm-projectile helm-flycheck git-timemachine git-commit-mode fullframe flycheck-pyflakes fixmee fill-column-indicator dired-subtree dired-narrow define-word cpputils-cmake company-jedi clojure-mode-extra-font-locking cider arduino-mode anaconda-mode ac-html-angular)))
  '(pos-tip-background-color "#FFFACE")
  '(pos-tip-foreground-color "#272822")
  '(python-shell-interpreter "/Users/apayne/Envs/.emacs.d-GQXW7O1A/bin/jupyter")
@@ -96,7 +90,7 @@
      (340 . "#2790C3")
      (360 . "#66D9EF"))))
  '(vc-annotate-very-old-color nil)
- '(visible-bell t)
+ '(visible-bell nil)
  '(weechat-color-list
    (unspecified "#272822" "#3C3D37" "#F70057" "#F92672" "#86C30D" "#A6E22E" "#BEB244" "#E6DB74" "#40CAE4" "#66D9EF" "#FB35EA" "#FD5FF0" "#74DBCD" "#A1EFE4" "#F8F8F2" "#F8F8F0")))
 (custom-set-faces
@@ -106,3 +100,4 @@
  ;; If there is more than one, they won't work right.
  )
 (put 'narrow-to-region 'disabled nil)
+(put 'upcase-region 'disabled nil)

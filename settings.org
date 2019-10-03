@@ -6,11 +6,11 @@
 
 ** Custom Org-structure templates
 Type <es or <el then tab to get an emacs-list source block.
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
 
-(add-to-list 'org-structure-template-alist '("es" "#+BEGIN_SRC emacs-lisp \n?\n#+END_SRC" "<src lang=\"python\">\n\n</src>"))
-(add-to-list 'org-structure-template-alist '("el" "#+BEGIN_SRC emacs-lisp \n?\n#+END_SRC" "<src lang=\"python\">\n\n</src>"))
-(add-to-list 'org-structure-template-alist '("p" "#+BEGIN_SRC python :results output\n?\n#+END_SRC" "<src lang=\"python\">\n\n</src>"))
+(add-to-list 'org-structure-template-alist '("es" "#+BEGIN_SRC emacs-lisp :results output silent\n?\n#+END_SRC"))
+(add-to-list 'org-structure-template-alist '("el" "#+BEGIN_SRC emacs-lisp :results output silent\n?\n#+END_SRC"))
+(add-to-list 'org-structure-template-alist '("p" "#+BEGIN_SRC python :results output\n?\n#+END_SRC"))
 #+END_SRC
 
 ** Future:
@@ -34,19 +34,18 @@ This shows only the first 9 characters of the branch name and the lock/whatever 
 Mostly got it from this answer:
 https://emacs.stackexchange.com/questions/10955/customize-vc-mode-appearance-in-mode-line
 Helpful for understanding advice and eval.
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
 (setcdr (assq 'vc-mode mode-line-format)
         '((:eval (truncate-string-to-width (replace-regexp-in-string "^ Git" "" vc-mode) 10))))
 #+END_SRC
 
 *** No tabs, only spaces now.
 https://www.emacswiki.org/emacs/NoTabs
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
 (setq-default indent-tabs-mode nil)
 #+END_SRC
-
 ** MELPA and other repositories
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
 ;; Emacs lisp files
 (add-to-list 'load-path "~/.emacs.d/elisp/")
 
@@ -61,7 +60,7 @@ https://www.emacswiki.org/emacs/NoTabs
 #+END_SRC
 
 ** Use-package
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
@@ -74,7 +73,7 @@ https://www.emacswiki.org/emacs/NoTabs
 
 ** Babel
 [[http://stackoverflow.com/questions/5902847/how-do-i-apply-or-to-a-list-in-elisp][Here is the stack answer about using the 'some' function.]]
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((python . t)
@@ -91,8 +90,9 @@ https://www.emacswiki.org/emacs/NoTabs
 (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
 #+END_SRC
 
+
 ** Iedit
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
 (use-package iedit
   :defer t
   )
@@ -102,7 +102,7 @@ https://www.emacswiki.org/emacs/NoTabs
 ** Python
 
 **** Linum mode, offset, old comments
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
 ;(require 'flycheck-pyflakes)
 ;(add-hook 'python-mode-hook 'flycheck-mode)
 
@@ -137,7 +137,7 @@ https://www.emacswiki.org/emacs/NoTabs
 #+END_SRC
 
 **** Elpy
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
 ; Activate elpy automatically
 (require 'package)
 
@@ -146,29 +146,30 @@ https://www.emacswiki.org/emacs/NoTabs
 (elpy-enable)
 #+END_SRC
 
+
 **** Black
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
 (add-hook 'python-mode-hook 'blacken-mode)
 ;; Setting line length to 100 for team agreement.
 (setq blacken-line-length 100)
 #+END_SRC
 
 **** Set python venv for elpy
-#+BEGIN_SRC emacs-lisp 
+#+BEGIN_SRC emacs-lisp :results output silent
 (setq elpy-rpc-python-command "~/Envs/.emacs.d-GQXW7O1A/bin/python3")
 (pyvenv-activate "/Users/apayne/Envs/.emacs.d-GQXW7O1A")
 
 #+END_SRC
 
 **** Flycheck
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
 ; I disabled this because it runs way too slow on remote machines.  And just it runs too slow.
 ;(add-hook 'after-init-hook #'global-flycheck-mode)
 
 #+END_SRC
 
 **** Pipenv
-#+BEGIN_SRC emacs-lisp 
+#+BEGIN_SRC emacs-lisp :results output silent
 (use-package pipenv
   :hook (python-mode . pipenv-mode)
   :init
@@ -179,7 +180,7 @@ https://www.emacswiki.org/emacs/NoTabs
 
 ** Regex and multiple cursors
 https://tuhdo.github.io/c-ide.html
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
 ;; if the files are not already in the load path
 ;; (add-to-list 'load-path "folder-to/visual-regexp/")
 ;; (add-to-list 'load-path "folder-to/visual-regexp-steroids/")
@@ -195,29 +196,17 @@ https://tuhdo.github.io/c-ide.html
 (define-key esc-map (kbd "C-r") 'vr/isearch-backward) ;; C-M-r
 (define-key esc-map (kbd "C-s") 'vr/isearch-forward) ;; C-M-s
 #+END_SRC
-
-** Use-package
-#+BEGIN_SRC emacs-lisp
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
-(setq use-package-always-ensure t)
-(setq use-package-verbose t)
-
-(require 'use-package)
-#+END_SRC
 ** Winner-mode
 This keeps undo history for window layouts.
 It will be useful if for some reason a package removes windows.
 C-c <left> undo
 C-c <right redo
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
 (winner-mode 1)
 #+END_SRC
 
 ** Robot Mode 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
 ; Testing
 (if (file-exists-p "~/.emacs.d/robot-mode/robot-mode.el") (load-file "~/.emacs.d/robot-mode/robot-mode.el"))
 (add-to-list 'auto-mode-alist '("\\.robot\\'" . robot-mode))
@@ -227,7 +216,7 @@ C-c <right redo
 
 #+END_SRC
 ** GUI stuff
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'tooltip-mode) (tooltip-mode -1))
@@ -242,7 +231,7 @@ C-c <right redo
 ** Navigation
 *** Custom Navigation
 I borrowed these from someone else.
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
 (defun smarter-move-beginning-of-line (arg)
   "Move point back to indentation of beginning of line.
 
@@ -278,13 +267,13 @@ Repeated invocations toggle between the two most recently open buffers."
 
 *** Personal Shortcuts
 **** Shortcut to place timestamp
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
 (global-set-key (kbd "C-c t")
 		(lambda () (interactive) (org-time-stamp "HH:MM")))
 #+END_SRC
 
 **** Shortcuts to org files
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
 (global-set-key (kbd "C-c p")
 		(lambda () (interactive) (find-file "~/Dropbox/WebDev/Ob.org")))
 (global-set-key (kbd "C-c d") ; d for Daily
@@ -306,7 +295,7 @@ Repeated invocations toggle between the two most recently open buffers."
   (switch-to-buffer (other-buffer (current-buffer) 1)))
 #+END_SRC
 *** Windows
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
 (windmove-default-keybindings)
 
 ;; Make windmove work in org-mode:
@@ -318,7 +307,7 @@ Repeated invocations toggle between the two most recently open buffers."
 
 **** Split windows and switch at the same time
 From Daniel Mai https://github.com/danielmai/.emacs.d/blob/master/config.org
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
 (defun vsplit-other-window ()
   "Splits the window vertically and switches to that window."
   (interactive)
@@ -337,7 +326,7 @@ From Daniel Mai https://github.com/danielmai/.emacs.d/blob/master/config.org
 **** Resizing windows
 This is cool!  
 I never knew this was here.
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
 (use-package hydra)
 (defhydra hydra-resize (global-map "<f2>")
   "resizing hydra"
@@ -349,7 +338,7 @@ I never knew this was here.
 #+END_SRC
 
 ** Key-chord
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
 (defun es/switch-to-previous-buffer ()
   "Switch to previously open buffer.
 Repeated invocations toggle between the two most recently open buffers."
@@ -378,7 +367,7 @@ Repeated invocations toggle between the two most recently open buffers."
 #+END_SRC
 
 *** Pylint
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
 ;; Configure flymake for Python
 (when (load "flymake" t)
   (defun flymake-pylint-init ()
@@ -396,7 +385,7 @@ Repeated invocations toggle between the two most recently open buffers."
 #+END_SRC
 
 ** Theme
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
 (use-package atom-one-dark-theme
   :disabled t
   :init
@@ -450,10 +439,17 @@ Repeated invocations toggle between the two most recently open buffers."
 (bind-key "C-`" 'switch-theme)
 #+END_SRC
 
+** Alarm
+
+#+BEGIN_SRC emacs-lisp :results output silent
+;; I don't want any visual or audible alarm when I am scrolling or anything happens.
+(setq ring-bell-function 'ignore)
+#+END_SRC
+
 ** REVIEW Helm-ag
 Still don't know what this does.
 TODO: Make it so helm doesn't take over th
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
 (use-package helm-ag
   :defer t
   :config
@@ -462,7 +458,7 @@ TODO: Make it so helm doesn't take over th
 #+END_SRC
 
 ** REVIEW Helm 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package helm
     :init
     ;;(require 'helm-config)
@@ -499,7 +495,7 @@ TODO: Make it so helm doesn't take over th
 
 *** General settings
 http://stackoverflow.com/questions/7174819/export-effort-and-clocksum-from-org-mode
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
 (setq org-refile-targets '((org-agenda-files . (:maxlevel . 6))))
 (setq org-hide-leading-stars t)
 
@@ -531,7 +527,7 @@ http://stackoverflow.com/questions/7174819/export-effort-and-clocksum-from-org-m
 #+END_SRC
 
 *** Clock
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
 ; This is supposed to include the current open clock in reports.
 ; It presently isn't working like I expect.  I don't see it doing anything.
 (setq org-clock-report-include-clocking-task 1)
@@ -549,7 +545,7 @@ http://stackoverflow.com/questions/7174819/export-effort-and-clocksum-from-org-m
 ;;(setq org-log-done 'note)
 #+END_SRC
 *** Keybindings
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (global-set-key "\C-cc" 'org-capture)
   (global-set-key "\C-ca" 'corgi-org-agenda)
 
@@ -570,7 +566,7 @@ http://stackoverflow.com/questions/7174819/export-effort-and-clocksum-from-org-m
 #+END_SRC
 
 *** Speed Commands and Highlights
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
 (setq org-use-speed-commands t)
 ;; volatile highlights - temporarily highlight changes from pasting etc
 (use-package volatile-highlights
@@ -579,7 +575,7 @@ http://stackoverflow.com/questions/7174819/export-effort-and-clocksum-from-org-m
 #+END_SRC
 
 *** TODOs
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
 (setq org-enforce-todo-dependencies t)
 
 ;; Set to 'invisible and blocked tasks wont show up in agenda, t and they will be dimmed
@@ -590,7 +586,7 @@ http://stackoverflow.com/questions/7174819/export-effort-and-clocksum-from-org-m
 #+END_SRC
 
 *** Agenda
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
 ;; Enable highlight line only for org-agenda-mode (it is annoying in other modes)
 (add-hook 'org-agenda-mode-hook 'hl-line-mode)
 
@@ -660,7 +656,7 @@ http://stackoverflow.com/questions/7174819/export-effort-and-clocksum-from-org-m
 #+END_SRC
 
 *** Capture templates
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (setq org-capture-templates
     '(("i" "New TODO to Uncategorized TODOs" entry (file+headline
       "~/Dropbox/org_files/da_guai.org" "Uncategorized TODOs")
@@ -679,7 +675,7 @@ http://stackoverflow.com/questions/7174819/export-effort-and-clocksum-from-org-m
       "* %T\n\n%?" :kill-buffer t :prepend t :empty-lines 1)))
 #+END_SRC
 *** Org-bullets
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
 (use-package org-bullets
 :init
 (setq org-bullets-bullet-list
@@ -691,7 +687,7 @@ http://stackoverflow.com/questions/7174819/export-effort-and-clocksum-from-org-m
 #+END_SRC
 
 *** make things look nice
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (setq org-src-fontify-natively t
         org-src-window-setup 'current-window
         org-src-strip-leading-and-trailing-blank-lines t
@@ -699,8 +695,9 @@ http://stackoverflow.com/questions/7174819/export-effort-and-clocksum-from-org-m
         org-src-tab-acts-natively t)
 #+END_SRC
 
-*** REVIEW Org-Journal
-#+BEGIN_SRC emacs-lisp 
+*** Org-Journal
+#+BEGIN_SRC emacs-lisp :results output silent
+(use-package org-journal)
 (require 'org-journal)
 ;; Set keybinding for new journal entry because it overlaps with org-goto from org mode.
 (global-set-key (kbd "C-c j") 'org-journal-new-entry)
@@ -710,32 +707,40 @@ http://stackoverflow.com/questions/7174819/export-effort-and-clocksum-from-org-m
 (setq org-journal-file-type (quote yearly))
 #+END_SRC
 
-#+RESULTS:
-: yearly
+*** Org-pomodoro
+#+BEGIN_SRC emacs-lisp :results output silent
+(use-package org-pomodoro)
+(require 'org-pomodoro)
+
+;; Set these here instead of in customize.
+(setq org-pomodoro-finished-sound "/Users/apayne/Downloads/Store_Door_Chime.wav")
+(setq org-pomodoro-length 25)
+(setq org-pomodoro-long-break-sound " /Users/apayne/Downloads/Store_Door_Chime.wav")
+(setq org-pomodoro-short-break-sound " /Users/apayne/Downloads/Store_Door_Chime.wav")
+(setq org-pomodoro-start-sound " /Users/apayne/Downloads/Store_Door_Chime.wav")
+#+END_SRC
 
 ** Markdown-mode
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
 (use-package markdown-mode
   :defer t
   )
 #+END_SRC
 ** Git
 *** Markdown Preview
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
 (use-package vmd-mode)
 #+END_SRC
 ** REVIEW Update path
 I need to include other stuff in path for emacs
 https://www.emacswiki.org/emacs/ExecPath
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
 (setq exec-path (append exec-path '("/usr/local/bin")))
 #+END_SRC
 
-#+RESULTS:
-| /usr/bin | /bin | /usr/sbin | /sbin | /Applications/Emacs.app/Contents/MacOS/bin-x86_64-10_9 | /Applications/Emacs.app/Contents/MacOS/libexec-x86_64-10_9 | /Applications/Emacs.app/Contents/MacOS/libexec | /Applications/Emacs.app/Contents/MacOS/bin | /Library/Frameworks/Python.framework/Versions/3.6/bin/ | /usr/local/bin | /usr/local/bin |
 ** REVIEW Ace-mode
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
 (add-to-list 'load-path "/Users/apayne/.emacs.d/elpa/ace-jump-mode-20140616.815/")
 (autoload
   'ace-jump-mode
@@ -758,10 +763,8 @@ https://www.emacswiki.org/emacs/ExecPath
 (define-key global-map (kbd "C-x SPC") 'ace-jump-mode-pop-mark)
 #+END_SRC
 
-#+RESULTS:
-: ace-jump-mode-pop-mark
-** REVIEW ros
-#+BEGIN_SRC emacs-lisp 
+** REVIEW ros (put screenshots in orgmode)
+#+BEGIN_SRC emacs-lisp :results output silent
 ;; Rahul Org-mode Screenshot takes a screenshot with scrot -s (waits for screen
 ;; selection), saves it as orgfileopened.org_YYYYMMDD_hhmmss.png, inserts 
 ;; the link and turns on the display-inline-images, showing your screenshot directly
@@ -784,12 +787,3 @@ https://www.emacswiki.org/emacs/ExecPath
 	    (org-display-inline-images t t)))))
 #+END_SRC
 
-
-#+BEGIN_SRC emacs-lisp 
- (if 1
-              (print 'true)
-            'very-falsa)
-#+END_SRC
-
-#+RESULTS:
-: true
