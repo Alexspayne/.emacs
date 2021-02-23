@@ -5,13 +5,11 @@
 :END:      
 
 ** Custom Org-structure templates
-Type <es or <el then tab to get an emacs-list source block.
-#+BEGIN_SRC emacs-lisp :results output silent
+https://orgmode.org/manual/Structure-Templates.html
 
-(add-to-list 'org-structure-template-alist '("es" "#+BEGIN_SRC emacs-lisp :results output silent\n?\n#+END_SRC"))
-(add-to-list 'org-structure-template-alist '("el" "#+BEGIN_SRC emacs-lisp :results output silent\n?\n#+END_SRC"))
-(add-to-list 'org-structure-template-alist '("p" "#+BEGIN_SRC python :results output\n?\n#+END_SRC"))
-#+END_SRC
+#+begin_src emacs-lisp :results output silent
+(require 'org-tempo)
+#+end_src
 
 ** Future:
 Check out other people's configs and read through them, learn about nifty things and add to your own.
@@ -44,10 +42,6 @@ https://www.emacswiki.org/emacs/NoTabs
 #+BEGIN_SRC emacs-lisp :results output silent
 (setq-default indent-tabs-mode nil)
 #+END_SRC
-** Magit
-#+BEGIN_SRC emacs-lisp :results output silent
-(use-package magit)
-#+END_SRC
 ** MELPA and other repositories
 #+BEGIN_SRC emacs-lisp :results output silent
 ;; Emacs lisp files
@@ -63,6 +57,10 @@ https://www.emacswiki.org/emacs/NoTabs
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 #+END_SRC
 
+** Magit
+#+BEGIN_SRC emacs-lisp :results output silent
+(use-package magit)
+#+END_SRC
 ** Use-package
 #+BEGIN_SRC emacs-lisp :results output silent
 (unless (package-installed-p 'use-package)
@@ -159,8 +157,9 @@ https://www.emacswiki.org/emacs/NoTabs
 
 *** Set python venv for elpy
 #+BEGIN_SRC emacs-lisp :results output silent
-(setq elpy-rpc-python-command "~/Envs/.emacs.d-GQXW7O1A/bin/python3")
-(pyvenv-activate "/Users/apayne/Envs/.emacs.d-GQXW7O1A")
+;TODO set up again
+;(setq elpy-rpc-python-command "~/Envs/.emacs.d-GQXW7O1A/bin/python3")
+;(pyvenv-activate "/Users/apayne/Envs/.emacs.d-GQXW7O1A")
 
 #+END_SRC
 
@@ -414,7 +413,7 @@ Repeated invocations toggle between the two most recently open buffers."
 (bind-key "C-`" 'switch-theme)
 
 (use-package zenburn-theme)
-;(load-theme `zenburn t)
+(load-theme `zenburn t)
 #+END_SRC
 
 ** helpful
