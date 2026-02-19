@@ -768,6 +768,41 @@ https://www.emacswiki.org/emacs/ExecPath
 (define-key global-map (kbd "C-x SPC") 'ace-jump-mode-pop-mark)
 #+END_SRC
 
+** Claude AI (gptel)
+Integration with Claude via the [[https://github.com/karthink/gptel][gptel]] package, which supports Anthropic natively
+along with streaming responses and org-mode awareness.
+
+Requires an Anthropic API key. Set it in your shell environment before starting Emacs:
+#+begin_example
+export ANTHROPIC_API_KEY="sk-ant-..."
+#+end_example
+
+Keybindings:
+- ~C-c l~ — open a Claude chat buffer
+- ~C-c RET~ — send the current prompt (works in any buffer with a region selected too)
+- ~C-c C-l~ — quick rewrite/refactor selected region with Claude
+
+#+BEGIN_SRC emacs-lisp :results output silent
+(use-package gptel
+  :ensure t
+  :config
+  ;; Set Anthropic/Claude as the default backend
+  (setq gptel-backend
+        (gptel-make-anthropic "Claude"
+          :stream t
+          :key (lambda ()
+                 (or (getenv "ANTHROPIC_API_KEY")
+                     (error "ANTHROPIC_API_KEY environment variable not set")))))
+  ;; claude-sonnet is a good daily-driver; swap for claude-opus-4-6 for harder tasks
+  (setq gptel-model 'claude-sonnet-4-6)
+  ;; Integrate with org-mode so responses use org markup
+  (setq gptel-default-mode 'org-mode)
+  :bind
+  (("C-c l"   . gptel)
+   ("C-c RET" . gptel-send)
+   ("C-c C-l" . gptel-rewrite)))
+#+END_SRC
+
 ** REVIEW ros (put screenshots in orgmode)
 #+BEGIN_SRC emacs-lisp :results output silent
 ;; Rahul Org-mode Screenshot takes a screenshot with scrot -s (waits for screen
