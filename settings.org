@@ -779,8 +779,11 @@ export ANTHROPIC_API_KEY="sk-ant-..."
 
 Keybindings:
 - ~C-c l~ — open a Claude chat buffer
-- ~C-c RET~ — send the current prompt (works in any buffer with a region selected too)
-- ~C-c C-l~ — quick rewrite/refactor selected region with Claude
+- ~C-c L~ — send the current prompt (or selected region from any buffer)
+- ~C-c M-l~ — rewrite/refactor selected region in-place
+
+Note: ~C-c C-l~ is intentionally avoided (org-insert-link) and ~C-c RET~ is
+avoided inside org tables (org-table-hline-and-move).
 
 #+BEGIN_SRC emacs-lisp :results output silent
 (use-package gptel
@@ -799,8 +802,8 @@ Keybindings:
   (setq gptel-default-mode 'org-mode)
   :bind
   (("C-c l"   . gptel)
-   ("C-c RET" . gptel-send)
-   ("C-c C-l" . gptel-rewrite)))
+   ("C-c L"   . gptel-send)
+   ("C-c M-l" . gptel-rewrite)))
 #+END_SRC
 
 ** REVIEW ros (put screenshots in orgmode)
